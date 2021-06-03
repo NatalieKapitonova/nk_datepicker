@@ -1,5 +1,5 @@
-export const SNOWPACK_PUBLIC_GIT_SHA = "7e270055e6d08245ab90e6bd396576e3475f5f37";
-export const SNOWPACK_PUBLIC_URL = "/boilerplate_snowpack_bootstrap";
+export const SNOWPACK_PUBLIC_GIT_SHA = "4f5a1c3360a0ce11d771959a317077fa30a16b2b";
+export const SNOWPACK_PUBLIC_URL = "/nk_datepicker";
 export const MODE = "development";
 export const NODE_ENV = "development";
 export const SSR = false;
