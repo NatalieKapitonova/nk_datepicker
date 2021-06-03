@@ -1,18 +1,20 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
-import Home from "./home";
+import * as History from "history";
 
-const NotFound = () => (
-  <p>
-    <i>Page Not Found</i>
-  </p>
-);
+import { Router, Switch, Route } from "react-router-dom";
 
-export default () => {
+import Examples from "./examples";
+
+const history = History.createBrowserHistory();
+
+function App() {
   return (
-    <Switch>
-      <Route exact path={"/"} component={Home} />
-      <Route component={NotFound} />
-    </Switch>
+    <Router history={history}>
+      <Switch>
+        <Route path="/" component={Examples} />
+      </Switch>
+    </Router>
   );
-};
+}
+
+export default App;

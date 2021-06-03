@@ -1,11 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Layout from "./layout";
-import Router from "./router";
+import "./index.css";
+import App from "./router";
+import { ThemeProvider } from "./theming/context";
 
 ReactDOM.render(
-  <Layout>
-    <Router />
-  </Layout>,
+  <React.StrictMode>
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
+  </React.StrictMode>,
   document.getElementById("root")
 );
