@@ -1,23 +1,26 @@
-import React, { useState } from 'react';
-import Header from '../calendar/components/header';
-import Body from '../calendar/components/body';
-import * as U from './utils';
-import styled from 'styled-components';
-import OK from './components/ok-button';
+import React, { useState } from "react";
+import Header from "../calendar/components/header";
+import Body from "../calendar/components/body";
+import * as U from "./utils";
+import styled from "styled-components";
+import OK from "./components/ok-button";
 
 // const color = "#1a759f"; // todo: have default and accept from props
-const color = '#ef476f';
+const colorDefault = "#ef476f";
 
 interface Props {
   date?: Date;
   day?: number;
   month?: number;
   year?: number;
+  color?: string;
   onSelectDate: (date: Date) => void;
 }
 
 export default (props: Props) => {
+  const color = props.color || colorDefault;
   const { onSelectDate } = props;
+
   const [date, setDate] = useState<Date>(props.date || new Date());
   const [day, setDay] = useState<number>(props.day || date.getDate());
   const [month, setMonth] = useState<number>(
@@ -78,7 +81,7 @@ export default (props: Props) => {
           daySelected={getSelectedDay()}
           onDayChange={handleDayChange}
         />
-        <OK onClick={() => onSelectDate(date)} />
+        <OK onClick={() => onSelectDate(date)} color={color} />
       </Table>
     </>
   );

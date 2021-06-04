@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import MonthCalendar from '.';
-import YearCalendar from './year-view';
+import MonthCalendar from ".";
+import YearCalendar from "./year-view";
 
-import styled from 'styled-components';
+import styled from "styled-components";
 
 interface Props {
   date: Date;
@@ -20,7 +20,6 @@ export default (props: Props) => {
     return (
       <>
         <ToggleIcon
-          className="toggle-collapse"
           onClick={() => {
             setIsYearCalendar(!isYearCalendar);
             onToggle(false);
@@ -30,7 +29,7 @@ export default (props: Props) => {
         </ToggleIcon>
         <YearCalendar
           date={date}
-          onSelectDate={d => {
+          onSelectDate={(d) => {
             setDate(d);
             onSelectDate(d);
           }}
@@ -41,17 +40,17 @@ export default (props: Props) => {
   return (
     <>
       <ToggleIcon
-        className="toggle-expand"
         onClick={() => {
           setIsYearCalendar(!isYearCalendar);
           onToggle(true);
         }}
       >
-        &#10535;
+        {/* &#10535; */}
+        &#8599;
       </ToggleIcon>
       <MonthCalendar
         date={date}
-        onSelectDate={d => {
+        onSelectDate={(d) => {
           setDate(d);
           onSelectDate(d);
         }}
@@ -63,16 +62,9 @@ export default (props: Props) => {
 const ToggleIcon = styled.span`
   color: #aaa;
   float: right;
-  margin-top: -14px;
+  margin-top: -15px;
   margin-right: 10px;
   cursor: pointer;
-
-  &.toggle-expand {
-    font-weight: bolder;
-  }
-
-  &.toggle-collapse {
-    font-size: 1.5em;
-    margin-top: -16px;
-  }
+  font-size: 1.5em;
+  margin-top: -16px;
 `;

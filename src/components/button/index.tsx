@@ -1,13 +1,15 @@
-import React, { useContext } from 'react';
-import { ThemeContext } from '../../theming/context';
-import * as T from './type';
+import React, { useContext } from "react";
+import { ThemeContext } from "../../theming/context";
+import * as T from "./type";
 
-import styled from 'styled-components';
+import styled from "styled-components";
+
+const colorDefault = "#313d5a";
 
 const Button = (props: T.ButtonProps) => {
   const { size, round } = props;
   const {
-    state: { theme }
+    state: { theme },
   } = useContext(ThemeContext);
   const { onClick } = props;
 
@@ -17,15 +19,15 @@ const Button = (props: T.ButtonProps) => {
     onClick && onClick(e);
   };
 
-  const sizeClassName = size === 'sm' ? 'small' : undefined;
-  const roundedClassName = round ? 'rounded' : undefined;
+  const sizeClassName = size === "sm" ? "small" : size === "lg" ? "large" : "";
+  const roundedClassName = round ? "rounded" : undefined;
 
   return (
     <ButtonStyled
       {...props}
       onClick={handleClick}
-      theme={theme}
-      className={[sizeClassName, roundedClassName].join(' ')}
+      // theme={theme}
+      className={[sizeClassName, roundedClassName].join(" ")}
     />
   );
 };
@@ -38,57 +40,71 @@ const ButtonBase = (props: T.ButtonProps) => {
   );
 };
 
+const getBorder = (
+  variant?: T.Variant,
+  color?: string,
+  size?: T.Size
+): string => {
+  if (variant === "no-border") {
+    return "none";
+  }
+
+  if (size === "sm") {
+    return `1px solid ${color || colorDefault}`;
+  }
+
+  return `3px solid ${color || colorDefault}`;
+};
+
+const getBackground = (variant?: T.Variant, color?: string): string | null => {
+  if (variant === "filled") {
+    return color || colorDefault;
+  }
+  return null;
+};
+
+const getColor = (variant?: T.Variant, color?: string): string | null => {
+  return variant === "filled" ? "#fff" : color || colorDefault;
+};
+
+const getBrightness = (variant?: T.Variant): string => {
+  return variant === "filled" ? "130%" : "100%";
+};
+
 const ButtonStyled = styled(ButtonBase)`
   padding: 10px 15px;
   margin: 3px;
-  border: 3px double
-    ${props =>
-      props.color
-        ? props.theme.colors[props.color]
-        : props.theme.colors.primary};
-  color: ${props =>
-    props.color ? props.theme.colors[props.color] : props.theme.colors.primary};
+  border: ${(props) => {
+    const b = getBorder(props.variant, props.color, props.size);
+    console.log(b);
+    return b;
+  }};
+  color: ${(props) => getColor(props.variant, props.color)};
   cursor: pointer;
+  background-color: ${(props) => getBackground(props.variant, props.color)};
 
+  &:active {
+    filter: brightness(80%);
+  }
   &:hover {
-    background-color: ${props =>
-      props.color
-        ? props.theme.colors[props.color]
-        : props.theme.colors.primary};
+    background-color: ${(props) => props.color || colorDefault};
     color: #fff;
     transition: 0.5s ease-in ease-out;
+    filter: brightness(${(props) => getBrightness(props.variant)});
   }
 
   &.small {
     padding: 5px 7px;
     font-size: 0.8em;
-    border: 1px solid
-      ${props =>
-        props.color
-          ? props.theme.colors[props.color]
-          : props.theme.colors.primary};
-    color: ${props =>
-      props.color
-        ? props.theme.colors[props.color]
-        : props.theme.colors.primary};
+  }
 
-    &:hover {
-      background-color: "#aaa"; !important
-      transition: 0.5s ease-in ease-out;
-    }
+  &.large {
+    padding: 10px 17px;
+    font-size: 1.4em;
   }
 
   &.rounded {
     border-radius: 25px;
-  }
-
-  &:hover {
-    background-color: ${props =>
-      props.color
-        ? props.theme.colors[props.color]
-        : props.theme.colors.primary};
-    color: #fff;
-    transition: 0.5s ease-in ease-out;
   }
 `;
 

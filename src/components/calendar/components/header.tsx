@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import * as C from '../utils/constants';
+import * as C from "../utils/constants";
 
 interface Props {
   color: string;
@@ -12,27 +12,30 @@ interface Props {
   onMonthChange: (m: number) => void;
 }
 
-const color = '#ef476f';
+const color = "#ef476f";
 
-const Year = (props: { year: number; onYearChange: (i: number) => void }) => {
+export const Year = (props: {
+  year: number;
+  onYearChange: (i: number) => void;
+}) => {
   const { year, onYearChange } = props;
   return (
     <>
-      <tr style={{ textAlign: 'center' }}>
-        <td colSpan={1} style={{ fontSize: '0.7em', color: 'gray' }}>
+      <tr style={{ textAlign: "center" }}>
+        <td colSpan={1} style={{ fontSize: "0.7em", color: "gray" }}>
           <span
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: "pointer" }}
             onClick={() => onYearChange(year - 1)}
           >
             {year - 1}
           </span>
         </td>
-        <td colSpan={5} style={{ color, fontSize: '1.4em' }}>
+        <td colSpan={5} style={{ color, fontSize: "1.4em" }}>
           {year}
         </td>
-        <td colSpan={1} style={{ fontSize: '0.7em', color: 'gray' }}>
+        <td colSpan={1} style={{ fontSize: "0.7em", color: "gray" }}>
           <span
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: "pointer" }}
             onClick={() => onYearChange(year + 1)}
           >
             {year + 1}
@@ -51,11 +54,11 @@ const Month = (props: {
   const { month, onMonthChange, enableControls } = props;
   return (
     <>
-      <tr style={{ textAlign: 'center' }}>
-        <td colSpan={1} style={{ fontSize: '0.7em', color: 'gray' }}>
+      <tr style={{ textAlign: "center" }}>
+        <td colSpan={1} style={{ fontSize: "0.7em", color: "gray" }}>
           {enableControls && (
             <span
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: "pointer" }}
               onClick={() => onMonthChange(month - 1)}
             >
               {(C.months[month - 1] || C.months[C.months.length - 1]).substring(
@@ -65,13 +68,13 @@ const Month = (props: {
             </span>
           )}
         </td>
-        <td colSpan={5} style={{ padding: 10, color, fontSize: '1.4em' }}>
+        <td colSpan={5} style={{ padding: 10, color, fontSize: "1.4em" }}>
           {C.months[month]}
         </td>
-        <td colSpan={1} style={{ fontSize: '0.7em', color: 'gray' }}>
+        <td colSpan={1} style={{ fontSize: "0.7em", color: "gray" }}>
           {enableControls && (
             <span
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: "pointer" }}
               onClick={() => onMonthChange(month + 1)}
             >
               {(C.months[month + 1] || C.months[0]).substring(0, 3)}
@@ -83,10 +86,16 @@ const Month = (props: {
   );
 };
 export default (props: Props) => {
-  const { year, month, onYearChange, onMonthChange, showYear, enableControls } =
-    props;
+  const {
+    year,
+    month,
+    onYearChange,
+    onMonthChange,
+    showYear,
+    enableControls,
+  } = props;
   return (
-    <thead style={{ fontWeight: 'initial' }}>
+    <thead style={{ fontWeight: "initial" }}>
       {showYear && <Year onYearChange={onYearChange} year={year} />}
       <Month
         month={month}

@@ -1,14 +1,17 @@
 import React from "react";
 
-export type Color = "primary" | "secondary" | "error" | "success" | "warning";
-export type Variant = "filled" | "oulined";
+// todo
+// export type Color = "primary" | "secondary" | "error" | "success" | "warning";
+export type Variant = "filled" | "oulined" | "no-border";
+export type Size = "sm" | "md" | "lg";
 
 export interface ButtonProps {
   variant?: Variant;
-  color?: Color;
+  // color?: Color;
+  color?: string;
   children: React.ReactChildren | string | number;
   onClick?: (e: any) => void;
   className?: string;
-  size?: "sm" | "md" | "lg";
+  size?: Size;
   round?: boolean;
 }
