@@ -4,8 +4,9 @@ import Body from "./components/body.js";
 import * as U from "./utils/index.js";
 import styled from "../../_snowpack/pkg/styled-components.js";
 import OK from "./components/ok-button.js";
-const color = "#ef476f";
+const colorDefault = "#ef476f";
 export default (props) => {
+  const color = props.color || colorDefault;
   const {onSelectDate} = props;
   const [date, setDate] = useState(props.date || new Date());
   const [day, setDay] = useState(props.day || date.getDate());
@@ -53,7 +54,8 @@ export default (props) => {
     daySelected: getSelectedDay(),
     onDayChange: handleDayChange
   }), /* @__PURE__ */ React.createElement(OK, {
-    onClick: () => onSelectDate(date)
+    onClick: () => onSelectDate(date),
+    color
   })));
 };
 const Table = styled.table`

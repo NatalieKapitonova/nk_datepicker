@@ -8,7 +8,6 @@ export default (props) => {
   const [date, setDate] = useState(props.date || new Date());
   if (isYearCalendar) {
     return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(ToggleIcon, {
-      className: "toggle-collapse",
       onClick: () => {
         setIsYearCalendar(!isYearCalendar);
         onToggle(false);
@@ -22,12 +21,11 @@ export default (props) => {
     }));
   }
   return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(ToggleIcon, {
-    className: "toggle-expand",
     onClick: () => {
       setIsYearCalendar(!isYearCalendar);
       onToggle(true);
     }
-  }, "⤧"), /* @__PURE__ */ React.createElement(MonthCalendar, {
+  }, "↗"), /* @__PURE__ */ React.createElement(MonthCalendar, {
     date,
     onSelectDate: (d) => {
       setDate(d);
@@ -38,16 +36,9 @@ export default (props) => {
 const ToggleIcon = styled.span`
   color: #aaa;
   float: right;
-  margin-top: -14px;
+  margin-top: -15px;
   margin-right: 10px;
   cursor: pointer;
-
-  &.toggle-expand {
-    font-weight: bolder;
-  }
-
-  &.toggle-collapse {
-    font-size: 1.5em;
-    margin-top: -16px;
-  }
+  font-size: 1.5em;
+  margin-top: -16px;
 `;

@@ -8,8 +8,9 @@ export default (props) => {
     style: {position: "absolute", right: "10%", bottom: "30px"}
   }, /* @__PURE__ */ React.createElement(Button, {
     onClick,
-    color: "error",
     size: "sm",
-    round: true
+    variant: "no-border",
+    round: true,
+    color: props.color
   }, "OK")));
 };

@@ -1,7 +1,7 @@
 import React from "../../../_snowpack/pkg/react.js";
 import * as C from "../utils/constants.js";
 const color = "#ef476f";
-const Year = (props) => {
+export const Year = (props) => {
   const {year, onYearChange} = props;
   return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("tr", {
     style: {textAlign: "center"}
@@ -44,7 +44,14 @@ const Month = (props) => {
   }, (C.months[month + 1] || C.months[0]).substring(0, 3)))));
 };
 export default (props) => {
-  const {year, month, onYearChange, onMonthChange, showYear, enableControls} = props;
+  const {
+    year,
+    month,
+    onYearChange,
+    onMonthChange,
+    showYear,
+    enableControls
+  } = props;
   return /* @__PURE__ */ React.createElement("thead", {
     style: {fontWeight: "initial"}
   }, showYear && /* @__PURE__ */ React.createElement(Year, {

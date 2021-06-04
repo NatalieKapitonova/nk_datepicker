@@ -10,11 +10,13 @@ export default (props) => {
     to: "/examples/calendar"
   }, "Month calendar"), /* @__PURE__ */ React.createElement(NavLink, {
     to: "/examples/calendar-year"
-  }, "Year calendar"), /* @__PURE__ */ React.createElement(NavLink, {
+  }, "Year calendar"), /* @__PURE__ */ React.createElement("hr", {
+    style: {color: "gray"}
+  }), /* @__PURE__ */ React.createElement(NavLink, {
     to: "/examples/popover"
   }, "Popover"), /* @__PURE__ */ React.createElement(NavLink, {
-    to: "/examples/calendar"
-  }, "Month calendar"), /* @__PURE__ */ React.createElement(NavLink, {
+    to: "/examples/button"
+  }, "Button"), /* @__PURE__ */ React.createElement(NavLink, {
     to: "/examples/input"
   }, "Input")), /* @__PURE__ */ React.createElement("div", {
     style: {marginLeft: "250px"}
