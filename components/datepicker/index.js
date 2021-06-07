@@ -27,7 +27,7 @@ export default (props) => {
     setShowCalendar(false);
     setIsYearCalendar(false);
     if (outputDateFormat === "ISO") {
-      onChange(new Date(U.formatDate(d, "YYYY-MM-DD")).toISOString(), name);
+      onChange(U.dateToIso(d), name);
     } else {
       onChange(d, name);
     }

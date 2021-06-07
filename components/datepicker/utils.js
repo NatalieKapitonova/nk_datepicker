@@ -34,3 +34,6 @@ export const getPadding = (n) => {
   }
   return n;
 };
+export const dateToIso = (d) => {
+  return new Date(formatDate(d, "YYYY-MM-DD")).toISOString();
+};
