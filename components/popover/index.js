@@ -19,18 +19,18 @@ const Modal = styled.div`
   width: 100%;
   height: 100%;
   overflow: hidden;
-  // background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.4);
   display: block;
 `;
 const ModalContent = styled.div`
   background-color: #fefefe;
   text-align: center;
-  margin: 15% auto;
+  margin: 10% auto;
   top: -100px;
   padding: 15px;
   padding-top: 30px;
   padding-left: ${(props) => props.size === "sm" ? "30px" : "50px"};
-  padding-bottom: ${(props) => props.size === "sm" ? "15px" : "30px"};
+  margin-bottom: ${(props) => props.size === "sm" ? "15px" : "50px"};
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   width: ${(props) => props.size === "sm" ? "300px" : "1000px"};
   position: relative;

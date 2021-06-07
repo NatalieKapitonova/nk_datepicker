@@ -45,7 +45,7 @@ const getColor = (variant, color) => {
   return variant === "filled" ? "#fff" : color || colorDefault;
 };
 const getBrightness = (variant) => {
-  return variant === "filled" ? "130%" : "100%";
+  return variant === "filled" ? "120%" : "none";
 };
 const ButtonStyled = styled(ButtonBase)`
   padding: 10px 15px;
@@ -59,9 +59,6 @@ const ButtonStyled = styled(ButtonBase)`
   cursor: pointer;
   background-color: ${(props) => getBackground(props.variant, props.color)};
 
-  &:active {
-    filter: brightness(80%);
-  }
   &:hover {
     background-color: ${(props) => props.color || colorDefault};
     color: #fff;
@@ -69,6 +66,9 @@ const ButtonStyled = styled(ButtonBase)`
     filter: brightness(${(props) => getBrightness(props.variant)});
   }
 
+  &:active {
+    filter: brightness(90%);
+  }
   &.small {
     padding: 5px 7px;
     font-size: 0.8em;
@@ -76,7 +76,8 @@ const ButtonStyled = styled(ButtonBase)`
 
   &.large {
     padding: 10px 17px;
-    font-size: 1.4em;
+    font-size: 1.3em;
+    font-weight: 300;
   }
 
   &.rounded {

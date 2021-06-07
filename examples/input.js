@@ -6,10 +6,16 @@ export default () => {
     style: {padding: 50}
   }, /* @__PURE__ */ React.createElement("div", {
     style: {width: "50%"}
-  }, /* @__PURE__ */ React.createElement(Input, {
+  }, /* @__PURE__ */ React.createElement("p", null, "Input field"), /* @__PURE__ */ React.createElement(Input, {
     onChange: (o) => setValue(o.value),
     name: "demo",
     value,
-    placeholder: "khgjhg"
+    placeholder: "Enter your text here"
+  }), /* @__PURE__ */ React.createElement("p", null, "Disabled input"), /* @__PURE__ */ React.createElement(Input, {
+    onChange: (o) => setValue(o.value),
+    name: "demo2",
+    value: "",
+    placeholder: "Disabled",
+    disabled: true
   })));
 };

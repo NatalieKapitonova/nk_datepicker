@@ -5,13 +5,40 @@ import * as U from "./utils/index.js";
 import styled from "../../_snowpack/pkg/styled-components.js";
 import OK from "./components/ok-button.js";
 const colorDefault = "#ef476f";
+const getDay = (d, day) => {
+  if (day) {
+    return day;
+  }
+  if (d) {
+    return d.getDate();
+  }
+  return new Date().getDate();
+};
+const getMonth = (d, month) => {
+  if (month !== void 0) {
+    return month;
+  }
+  if (d) {
+    return d.getMonth();
+  }
+  return new Date().getMonth();
+};
+const getYear = (d, year) => {
+  if (year) {
+    return year;
+  }
+  if (d) {
+    return d.getFullYear();
+  }
+  return new Date().getFullYear();
+};
 export default (props) => {
   const color = props.color || colorDefault;
   const {onSelectDate} = props;
-  const [date, setDate] = useState(props.date || new Date());
-  const [day, setDay] = useState(props.day || date.getDate());
-  const [month, setMonth] = useState(props.month === void 0 ? date.getMonth() : props.month);
-  const [year, setYear] = useState(props.year || date.getFullYear());
+  const [date, setDate] = useState(props.date);
+  const [day, setDay] = useState(getDay(props.date, props.day));
+  const [month, setMonth] = useState(getMonth(props.date, props.month));
+  const [year, setYear] = useState(getYear(props.date, props.year));
   const [weekStart, setWeekStart] = useState(new Date(year, month, 1).getDay());
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const days = U.getArrOfNumber(daysInMonth);

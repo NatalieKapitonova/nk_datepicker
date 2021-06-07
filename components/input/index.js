@@ -1,13 +1,14 @@
 import React from "../../_snowpack/pkg/react.js";
 import styled from "../../_snowpack/pkg/styled-components.js";
 export default (props) => {
-  const {name, value, onChange, placeholder, onClick} = props;
+  const {name, value, onChange, placeholder, onClick, disabled} = props;
   return /* @__PURE__ */ React.createElement(Input, {
     name,
     value,
     onChange: (e) => onChange({name, value: e.currentTarget.value}),
     placeholder,
-    onClick
+    onClick,
+    disabled
   });
 };
 const Input = styled.input`
@@ -16,14 +17,21 @@ const Input = styled.input`
   border-top: none;
   border-right: none;
   border-left: none;
+  border-bottom: 1px solid gray;
+  padding-left: 10px;
 
   &:focus {
     outline: none;
-    border-bottom: 3px solid #61a5c2;
+    border-bottom: 2px solid #313d5a;
     box-shadow: 0 6px 4px -6px grey;
+    margin-bottom: -1px;
   }
 
   &::placeholder {
     font-style: italic;
+  }
+
+  &::disabled {
+    background: #dddddd;
   }
 `;
