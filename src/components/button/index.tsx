@@ -53,7 +53,7 @@ const getBorder = (
     return `1px solid ${color || colorDefault}`;
   }
 
-  return `3px solid ${color || colorDefault}`;
+  return `2px solid ${color || colorDefault}`;
 };
 
 const getBackground = (variant?: T.Variant, color?: string): string | null => {
@@ -82,11 +82,11 @@ const ButtonStyled = styled(ButtonBase)`
   color: ${(props) => getColor(props.variant, props.color)};
   cursor: pointer;
   background-color: ${(props) => getBackground(props.variant, props.color)};
+  transition: 0.2s;
 
   &:hover {
     background-color: ${(props) => props.color || colorDefault};
     color: #fff;
-    transition: 0.5s ease-in ease-out;
     filter: brightness(${(props) => getBrightness(props.variant)});
   }
 

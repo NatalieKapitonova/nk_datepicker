@@ -5,7 +5,13 @@ import { Router, Switch, Route } from "react-router-dom";
 
 import Examples from "./examples";
 
-const history = History.createBrowserHistory();
+const basename: string = import.meta.env.SNOWPACK_PUBLIC_URL || "";
+
+console.log(`basename: ${basename}`);
+
+const history = History.createBrowserHistory({
+  basename,
+});
 
 function App() {
   return (
