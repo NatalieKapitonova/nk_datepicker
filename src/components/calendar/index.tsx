@@ -9,7 +9,7 @@ import OK from "./components/ok-button";
 const colorDefault = "#ef476f";
 
 interface Props {
-  date?: Date;
+  date?: Date | null;
   day?: number;
   month?: number;
   year?: number;
@@ -17,16 +17,46 @@ interface Props {
   onSelectDate: (date: Date) => void;
 }
 
+const getDay = (d: Date | null, day?: number): number => {
+  if (day) {
+    return day;
+  }
+  if (d) {
+    return d.getDate();
+  }
+
+  return new Date().getDate();
+};
+
+const getMonth = (d: Date | null, month?: number): number => {
+  if (month !== undefined) {
+    return month;
+  }
+  if (d) {
+    return d.getMonth();
+  }
+  return new Date().getMonth();
+};
+
+const getYear = (d: Date | null, year?: number) => {
+  if (year) {
+    return year;
+  }
+  if (d) {
+    return d.getFullYear();
+  }
+  return new Date().getFullYear();
+};
+
 export default (props: Props) => {
   const color = props.color || colorDefault;
   const { onSelectDate } = props;
 
-  const [date, setDate] = useState<Date>(props.date || new Date());
-  const [day, setDay] = useState<number>(props.day || date.getDate());
-  const [month, setMonth] = useState<number>(
-    props.month === undefined ? date.getMonth() : props.month
-  );
-  const [year, setYear] = useState<number>(props.year || date.getFullYear());
+  const [date, setDate] = useState<Date | null>(props.date);
+
+  const [day, setDay] = useState<number>(getDay(props.date, props.day));
+  const [month, setMonth] = useState<number>(getMonth(props.date, props.month));
+  const [year, setYear] = useState<number>(getYear(props.date, props.year));
 
   const [weekStart, setWeekStart] = useState<number>(
     new Date(year, month, 1).getDay()

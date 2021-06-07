@@ -45,7 +45,6 @@ export default (props: Props) => {
           onToggle(true);
         }}
       >
-        {/* &#10535; */}
         &#8599;
       </ToggleIcon>
       <MonthCalendar

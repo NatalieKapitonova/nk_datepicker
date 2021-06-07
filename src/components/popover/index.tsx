@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
 
 interface Props {
   open: boolean;
   onClose?: () => void;
   children: React.ReactNode | string | number;
-  size: 'sm' | 'lg';
+  size: "sm" | "lg";
 }
 
 export default (props: Props) => {
@@ -35,24 +35,24 @@ const Modal = styled.div`
   width: 100%;
   height: 100%;
   overflow: hidden;
-  // background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.4);
   display: block;
 `;
 
 const ModalContent = styled.div`
   background-color: #fefefe;
   text-align: center;
-  margin: 15% auto;
+  margin: 10% auto;
   top: -100px;
   padding: 15px;
   padding-top: 30px;
-  padding-left: ${(props: { size: 'sm' | 'lg' }) =>
-    props.size === 'sm' ? '30px' : '50px'};
-  padding-bottom: ${(props: { size: 'sm' | 'lg' }) =>
-    props.size === 'sm' ? '15px' : '30px'};
+  padding-left: ${(props: { size: "sm" | "lg" }) =>
+    props.size === "sm" ? "30px" : "50px"};
+  margin-bottom: ${(props: { size: "sm" | "lg" }) =>
+    props.size === "sm" ? "15px" : "50px"};
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  width: ${(props: { size: 'sm' | 'lg' }) =>
-    props.size === 'sm' ? '300px' : '1000px'};
+  width: ${(props: { size: "sm" | "lg" }) =>
+    props.size === "sm" ? "300px" : "1000px"};
   position: relative;
   overflow: hidden;
 

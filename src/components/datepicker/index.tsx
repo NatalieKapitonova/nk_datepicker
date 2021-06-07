@@ -1,65 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
 
-import Toggle from '../calendar/toggle';
-import Input from '../input';
-import Popover from '../popover';
+import Toggle from "../calendar/toggle";
+import Input from "../input";
+import Popover from "../popover";
 
-interface Props {
-  date?: Date;
-  onChange: (d: Date) => void;
-  pattern?: DateFormat;
-}
+import * as T from "./type";
+import * as U from "./utils";
 
-type DateFormat = 'DD/MM/YYYY' | 'DD.MM.YYYY';
-const formatDate = (d: Date, pattern?: DateFormat): string => {
-  const day = d.getDate();
-  const month = d.getMonth() + 1;
-  const year = d.getFullYear();
-
-  switch (pattern) {
-    case 'DD.MM.YYYY':
-      return [getPadding(day), getPadding(month), year].join('.');
-    case 'DD/MM/YYYY':
-      return [getPadding(day), getPadding(month), year].join('/');
-    default:
-      return [getPadding(day), getPadding(month), year].join('.');
+const getDate = (d?: string | Date | null): Date | null => {
+  if (!d) {
+    return null;
   }
-};
-
-const getPadding = (n: number) => {
-  if (n < 10) {
-    return `0${n}`;
+  if (typeof d === "string") {
+    return new Date(d);
   }
-  return n;
+
+  return d;
 };
-export default (props: Props) => {
-  const { onChange } = props;
-  const [date, setDate] = useState<Date>(props.date || new Date());
+export default (props: T.Props) => {
+  const { onChange, selectMethod, disabled, name, outputDateFormat } = props;
+  const [date, setDate] = useState<Date | null>(
+    props.date ? getDate(props.date) : null
+  );
   const [showCalendar, setShowCalendar] = useState<boolean>(false);
   const [isYearCalendar, setIsYearCalendar] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (props.date && props.date !== date) {
+      setDate(getDate(props.date));
+    }
+  }, [props.date]);
+
+  const handleSelectDate = (d: Date) => {
+    setDate(d);
+    setShowCalendar(false);
+    setIsYearCalendar(false);
+    if (outputDateFormat === "ISO") {
+      onChange(new Date(U.formatDate(d, "YYYY-MM-DD")).toISOString(), name);
+    } else {
+      onChange(d, name);
+    }
+  };
+
+  const handleToggle = (b: boolean) => {
+    setIsYearCalendar(b);
+  };
 
   return (
     <>
       <Input
-        name="nk_date"
+        name={name}
         onChange={() => {}}
         onClick={() => setShowCalendar(!showCalendar)}
-        value={formatDate(date)}
+        value={U.formatDate(date, props.pattern)}
+        disabled={disabled}
+        placeholder={props.pattern}
       />
       <Popover
         open={showCalendar}
         onClose={() => setShowCalendar(false)}
-        size={isYearCalendar ? 'lg' : 'sm'}
+        size={isYearCalendar ? "lg" : "sm"}
       >
         <Toggle
           date={date}
-          onSelectDate={d => {
-            setDate(d);
-            setShowCalendar(false);
-            setIsYearCalendar(false);
-            onChange(d);
-          }}
-          onToggle={b => setIsYearCalendar(b)}
+          onSelectDate={handleSelectDate}
+          onToggle={handleToggle}
         />
       </Popover>
     </>
