@@ -1,8 +1,7 @@
 import React from "../../../_snowpack/pkg/react.js";
 import * as C from "../utils/constants.js";
-const color = "#ef476f";
 export const Year = (props) => {
-  const {year, onYearChange} = props;
+  const {year, onYearChange, color} = props;
   return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("tr", {
     style: {textAlign: "center"}
   }, /* @__PURE__ */ React.createElement("td", {
@@ -23,7 +22,7 @@ export const Year = (props) => {
   }, year + 1))));
 };
 const Month = (props) => {
-  const {month, onMonthChange, enableControls} = props;
+  const {month, onMonthChange, enableControls, color} = props;
   return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("tr", {
     style: {textAlign: "center"}
   }, /* @__PURE__ */ React.createElement("td", {
@@ -50,16 +49,19 @@ export default (props) => {
     onYearChange,
     onMonthChange,
     showYear,
-    enableControls
+    enableControls,
+    color
   } = props;
   return /* @__PURE__ */ React.createElement("thead", {
     style: {fontWeight: "initial"}
   }, showYear && /* @__PURE__ */ React.createElement(Year, {
     onYearChange,
-    year
+    year,
+    color
   }), /* @__PURE__ */ React.createElement(Month, {
     month,
     onMonthChange,
-    enableControls
+    enableControls,
+    color
   }));
 };

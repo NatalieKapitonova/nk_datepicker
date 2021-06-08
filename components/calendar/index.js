@@ -1,52 +1,37 @@
-import React, {useState} from "../../_snowpack/pkg/react.js";
+import React, {useState, useEffect} from "../../_snowpack/pkg/react.js";
 import Header from "./components/header.js";
 import Body from "./components/body.js";
 import * as U from "./utils/index.js";
 import styled from "../../_snowpack/pkg/styled-components.js";
-import OK from "./components/ok-button.js";
-const colorDefault = "#ef476f";
-const getDay = (d, day) => {
-  if (day) {
-    return day;
-  }
-  if (d) {
-    return d.getDate();
-  }
-  return new Date().getDate();
-};
-const getMonth = (d, month) => {
-  if (month !== void 0) {
-    return month;
-  }
-  if (d) {
-    return d.getMonth();
-  }
-  return new Date().getMonth();
-};
-const getYear = (d, year) => {
-  if (year) {
-    return year;
-  }
-  if (d) {
-    return d.getFullYear();
-  }
-  return new Date().getFullYear();
-};
 export default (props) => {
-  const color = props.color || colorDefault;
+  const color = props.color;
   const {onSelectDate} = props;
   const [date, setDate] = useState(props.date);
-  const [day, setDay] = useState(getDay(props.date, props.day));
-  const [month, setMonth] = useState(getMonth(props.date, props.month));
-  const [year, setYear] = useState(getYear(props.date, props.year));
+  const [day, setDay] = useState(U.getDay(props.date, props.day));
+  const [month, setMonth] = useState(U.getMonth(props.date, props.month));
+  const [year, setYear] = useState(U.getYear(props.date, props.year));
   const [weekStart, setWeekStart] = useState(new Date(year, month, 1).getDay());
+  useEffect(() => {
+    if (props.date !== date && props.date !== null) {
+      setDate(props.date);
+      const d = U.getDay(props.date);
+      const m = U.getMonth(props.date);
+      const y = props.date.getFullYear();
+      setDay(d);
+      setMonth(m);
+      setYear(y);
+      setWeekStart(new Date(y, m, 1).getDay());
+    }
+  }, [props.date]);
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const days = U.getArrOfNumber(daysInMonth);
   const daysWithFrontPadding = [...U.getPadding(weekStart - 1), ...days];
   const rows = U.splitDaysInWeekRows(daysWithFrontPadding);
   const handleDayChange = (i) => {
     setDay(i);
-    setDate(new Date(year, month, i));
+    const d = new Date(year, month, i);
+    setDate(d);
+    onSelectDate(d);
   };
   const handleMonthChange = (i) => {
     const m = i < 0 ? 11 : i > 11 ? 0 : i;
@@ -79,9 +64,7 @@ export default (props) => {
   }), /* @__PURE__ */ React.createElement(Body, {
     rows,
     daySelected: getSelectedDay(),
-    onDayChange: handleDayChange
-  }), /* @__PURE__ */ React.createElement(OK, {
-    onClick: () => onSelectDate(date),
+    onDayChange: handleDayChange,
     color
   })));
 };

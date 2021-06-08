@@ -1,11 +1,17 @@
-import React, {useState} from "../../_snowpack/pkg/react.js";
+import React, {useState, useEffect} from "../../_snowpack/pkg/react.js";
 import MonthCalendar from "./index.js";
 import YearCalendar from "./year-view.js";
 import styled from "../../_snowpack/pkg/styled-components.js";
 export default (props) => {
-  const {onSelectDate, onToggle} = props;
+  const {onSelectDate, onToggle, color} = props;
   const [isYearCalendar, setIsYearCalendar] = useState(false);
   const [date, setDate] = useState(props.date || new Date());
+  useEffect(() => {
+    if (props.date !== date) {
+      console.log("here?");
+      setDate(props.date);
+    }
+  }, [props.date]);
   if (isYearCalendar) {
     return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(ToggleIcon, {
       onClick: () => {
@@ -14,6 +20,7 @@ export default (props) => {
       }
     }, "↙"), /* @__PURE__ */ React.createElement(YearCalendar, {
       date,
+      color,
       onSelectDate: (d) => {
         setDate(d);
         onSelectDate(d);
@@ -30,7 +37,8 @@ export default (props) => {
     onSelectDate: (d) => {
       setDate(d);
       onSelectDate(d);
-    }
+    },
+    color
   }));
 };
 const ToggleIcon = styled.span`

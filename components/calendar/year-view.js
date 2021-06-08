@@ -3,18 +3,19 @@ import Calendar from "./components/body.js";
 import Header from "./components/header.js";
 import * as C from "./utils/constants.js";
 import * as U from "./utils/index.js";
-import OK from "./components/ok-button.js";
 import Row from "../grid/row.js";
 import Column from "../grid/column.js";
-const color = "#ef476f";
+const colorDefault = "#ef476f";
 export default (props) => {
-  const {onSelectDate} = props;
+  const {onSelectDate, color} = props;
   const [date, setDate] = useState(props.date || new Date());
   const [day, setDay] = useState(date.getDate());
   const [year, setYear] = useState(date.getFullYear());
   const handleDayChange = (d, m) => {
     setDay(d);
-    setDate(new Date(year, m, d));
+    const newD = new Date(year, m, d);
+    setDate(newD);
+    onSelectDate(newD);
   };
   const handleYearChange = (y) => {
     setYear(y);
@@ -28,7 +29,7 @@ export default (props) => {
     size: 4
   }, /* @__PURE__ */ React.createElement("div", {
     style: {
-      color,
+      color: color || colorDefault,
       fontSize: "1.4em",
       textAlign: "center",
       marginBottom: 10
@@ -63,7 +64,7 @@ export default (props) => {
     return /* @__PURE__ */ React.createElement(Column, {
       size: 3
     }, /* @__PURE__ */ React.createElement(Header, {
-      color: "",
+      color: color || colorDefault,
       year,
       month: i,
       showYear: false,
@@ -76,10 +77,8 @@ export default (props) => {
       rows,
       daySelected: getSelectedDay(),
       onDayChange: (d) => handleDayChange(d, i),
+      color: color || colorDefault,
       shrinked: true
     }));
-  }), /* @__PURE__ */ React.createElement(OK, {
-    onClick: () => onSelectDate(date),
-    color
   })));
 };

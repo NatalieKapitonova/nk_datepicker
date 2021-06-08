@@ -4,7 +4,7 @@ export default (props) => {
   const {name, value, onChange, placeholder, onClick, disabled} = props;
   return /* @__PURE__ */ React.createElement(Input, {
     name,
-    value,
+    value: value || "",
     onChange: (e) => onChange({name, value: e.currentTarget.value}),
     placeholder,
     onClick,

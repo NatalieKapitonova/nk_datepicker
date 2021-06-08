@@ -17,3 +17,30 @@ export const splitDaysInWeekRows = (days, start = 0, step = 7, chunks = []) => {
   }
   return chunks;
 };
+export const getDay = (d, day) => {
+  if (day) {
+    return day;
+  }
+  if (d) {
+    return d.getDate();
+  }
+  return new Date().getDate();
+};
+export const getMonth = (d, month) => {
+  if (month !== void 0) {
+    return month;
+  }
+  if (d) {
+    return d.getMonth();
+  }
+  return new Date().getMonth();
+};
+export const getYear = (d, year) => {
+  if (year) {
+    return year;
+  }
+  if (d) {
+    return d.getFullYear();
+  }
+  return new Date().getFullYear();
+};

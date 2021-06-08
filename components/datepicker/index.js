@@ -2,35 +2,65 @@ import React, {useState, useEffect} from "../../_snowpack/pkg/react.js";
 import Toggle from "../calendar/toggle.js";
 import Input from "../input/index.js";
 import Popover from "../popover/index.js";
+import Btn from "./components/ok-button.js";
 import * as U from "./utils.js";
-const getDate = (d) => {
-  if (!d) {
-    return null;
-  }
-  if (typeof d === "string") {
-    return new Date(d);
-  }
-  return d;
-};
+const colorDefault = "#ef476f";
 export default (props) => {
-  const {onChange, selectMethod, disabled, name, outputDateFormat} = props;
-  const [date, setDate] = useState(props.date ? getDate(props.date) : null);
+  const {
+    onChange,
+    selectMethod,
+    disabled,
+    name,
+    outputDateFormat,
+    color,
+    showClear,
+    showToday
+  } = props;
+  const [date, setDate] = useState(props.date ? U.getDate(props.date) : null);
   const [showCalendar, setShowCalendar] = useState(false);
   const [isYearCalendar, setIsYearCalendar] = useState(false);
+  const [dateFormatted, setDateFormatted] = useState(U.formatDate(date, props.pattern));
   useEffect(() => {
     if (props.date && props.date !== date) {
-      setDate(getDate(props.date));
+      setDate(U.getDate(props.date));
     }
   }, [props.date]);
   const handleSelectDate = (d) => {
     setDate(d);
+    console.log(d);
+    if (selectMethod === "click_and_close") {
+      if (d === null) {
+        onChange(null, name);
+      }
+      if (outputDateFormat === "ISO") {
+        onChange(U.dateToIso(d), name);
+      } else {
+        onChange(d, name);
+      }
+      setDateFormatted(U.formatDate(d, props.pattern));
+      setShowCalendar(false);
+      setIsYearCalendar(false);
+    }
+  };
+  const handleChange = () => {
+    if (date === null) {
+      onChange(null, name);
+    }
+    if (outputDateFormat === "ISO") {
+      onChange(U.dateToIso(date), name);
+    } else {
+      onChange(date, name);
+    }
+    setDateFormatted(U.formatDate(date, props.pattern));
     setShowCalendar(false);
     setIsYearCalendar(false);
-    if (outputDateFormat === "ISO") {
-      onChange(U.dateToIso(d), name);
-    } else {
-      onChange(d, name);
-    }
+  };
+  const handleClear = () => {
+    setDate(null);
+    setDateFormatted("");
+    onChange(null, name);
+    setShowCalendar(false);
+    setIsYearCalendar(false);
   };
   const handleToggle = (b) => {
     setIsYearCalendar(b);
@@ -40,7 +70,7 @@ export default (props) => {
     onChange: () => {
     },
     onClick: () => setShowCalendar(!showCalendar),
-    value: U.formatDate(date, props.pattern),
+    value: dateFormatted,
     disabled,
     placeholder: props.pattern
   }), /* @__PURE__ */ React.createElement(Popover, {
@@ -50,6 +80,19 @@ export default (props) => {
   }, /* @__PURE__ */ React.createElement(Toggle, {
     date,
     onSelectDate: handleSelectDate,
-    onToggle: handleToggle
+    onToggle: handleToggle,
+    color: color || colorDefault
+  }), showClear && /* @__PURE__ */ React.createElement(Btn, {
+    onClick: () => handleClear(),
+    color: color || colorDefault,
+    label: "Clear"
+  }), showToday && /* @__PURE__ */ React.createElement(Btn, {
+    onClick: () => handleSelectDate(new Date()),
+    label: "Today",
+    color: color || colorDefault
+  }), (selectMethod === "ok_button" || selectMethod === void 0) && /* @__PURE__ */ React.createElement(Btn, {
+    onClick: () => handleChange(),
+    color: color || colorDefault,
+    label: "OK"
   })));
 };

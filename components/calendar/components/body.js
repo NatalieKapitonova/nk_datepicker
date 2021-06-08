@@ -1,9 +1,8 @@
 import React from "../../../_snowpack/pkg/react.js";
 import WeekDays from "./week-days.js";
 import styled from "../../../_snowpack/pkg/styled-components.js";
-const color = "#ef476f";
 export default (props) => {
-  const {rows, onDayChange, daySelected, shrinked} = props;
+  const {rows, onDayChange, daySelected, shrinked, color} = props;
   return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(WeekDays, {
     shrinked
   }), rows.map((row) => /* @__PURE__ */ React.createElement("tr", null, row.map((r, i) => /* @__PURE__ */ React.createElement(Day, {
