@@ -20,7 +20,7 @@ export default (props: Props) => {
   return (
     <Input
       name={name}
-      value={value}
+      value={value || ""}
       onChange={(e) => onChange({ name, value: e.currentTarget.value })}
       placeholder={placeholder}
       onClick={onClick}

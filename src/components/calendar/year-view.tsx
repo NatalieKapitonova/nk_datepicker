@@ -4,27 +4,29 @@ import Calendar from "../calendar/components/body";
 import Header from "../calendar/components/header";
 import * as C from "./utils/constants";
 import * as U from "./utils";
-import OK from "./components/ok-button";
+
 import Row from "../grid/row";
 import Column from "../grid/column";
-import { Year } from "./components/header";
 
 interface Props {
   date?: Date;
   onSelectDate: (d: Date) => void;
+  color?: string;
 }
 
 // todo
-const color = "#ef476f";
+const colorDefault = "#ef476f";
 export default (props: Props) => {
-  const { onSelectDate } = props;
+  const { onSelectDate, color } = props;
   const [date, setDate] = useState<Date>(props.date || new Date());
   const [day, setDay] = useState<number>(date.getDate());
   const [year, setYear] = useState<number>(date.getFullYear());
 
   const handleDayChange = (d: number, m: number) => {
     setDay(d);
-    setDate(new Date(year, m, d));
+    const newD = new Date(year, m, d);
+    setDate(newD);
+    onSelectDate(newD);
   };
 
   const handleYearChange = (y: number) => {
@@ -46,7 +48,7 @@ export default (props: Props) => {
         <Column size={4}>
           <div
             style={{
-              color,
+              color: color || colorDefault,
               fontSize: "1.4em",
               textAlign: "center",
               marginBottom: 10,
@@ -93,7 +95,7 @@ export default (props: Props) => {
           return (
             <Column size={3}>
               <Header
-                color=""
+                color={color || colorDefault}
                 year={year}
                 month={i}
                 showYear={false}
@@ -105,12 +107,12 @@ export default (props: Props) => {
                 rows={rows}
                 daySelected={getSelectedDay()}
                 onDayChange={(d) => handleDayChange(d, i)}
+                color={color || colorDefault}
                 shrinked
               />
             </Column>
           );
         })}
-        <OK onClick={() => onSelectDate(date)} color={color} />
       </Row>
     </>
   );

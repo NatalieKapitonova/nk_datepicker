@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import MonthCalendar from ".";
 import YearCalendar from "./year-view";
@@ -9,12 +9,20 @@ interface Props {
   date: Date;
   onSelectDate: (d: Date) => void;
   onToggle: (isYear: boolean) => void;
+  color?: string;
 }
 
 export default (props: Props) => {
-  const { onSelectDate, onToggle } = props;
+  const { onSelectDate, onToggle, color } = props;
   const [isYearCalendar, setIsYearCalendar] = useState<boolean>(false);
   const [date, setDate] = useState<Date>(props.date || new Date());
+
+  useEffect(() => {
+    if (props.date !== date) {
+      console.log("here?");
+      setDate(props.date);
+    }
+  }, [props.date]);
 
   if (isYearCalendar) {
     return (
@@ -29,6 +37,7 @@ export default (props: Props) => {
         </ToggleIcon>
         <YearCalendar
           date={date}
+          color={color}
           onSelectDate={(d) => {
             setDate(d);
             onSelectDate(d);
@@ -53,6 +62,7 @@ export default (props: Props) => {
           setDate(d);
           onSelectDate(d);
         }}
+        color={color}
       />
     </>
   );

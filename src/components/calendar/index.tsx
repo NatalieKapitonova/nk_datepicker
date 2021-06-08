@@ -1,12 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../calendar/components/header";
 import Body from "../calendar/components/body";
 import * as U from "./utils";
 import styled from "styled-components";
-import OK from "./components/ok-button";
-
-// const color = "#1a759f"; // todo: have default and accept from props
-const colorDefault = "#ef476f";
 
 interface Props {
   date?: Date | null;
@@ -17,50 +13,34 @@ interface Props {
   onSelectDate: (date: Date) => void;
 }
 
-const getDay = (d: Date | null, day?: number): number => {
-  if (day) {
-    return day;
-  }
-  if (d) {
-    return d.getDate();
-  }
-
-  return new Date().getDate();
-};
-
-const getMonth = (d: Date | null, month?: number): number => {
-  if (month !== undefined) {
-    return month;
-  }
-  if (d) {
-    return d.getMonth();
-  }
-  return new Date().getMonth();
-};
-
-const getYear = (d: Date | null, year?: number) => {
-  if (year) {
-    return year;
-  }
-  if (d) {
-    return d.getFullYear();
-  }
-  return new Date().getFullYear();
-};
-
 export default (props: Props) => {
-  const color = props.color || colorDefault;
+  const color = props.color;
   const { onSelectDate } = props;
 
   const [date, setDate] = useState<Date | null>(props.date);
 
-  const [day, setDay] = useState<number>(getDay(props.date, props.day));
-  const [month, setMonth] = useState<number>(getMonth(props.date, props.month));
-  const [year, setYear] = useState<number>(getYear(props.date, props.year));
+  const [day, setDay] = useState<number>(U.getDay(props.date, props.day));
+  const [month, setMonth] = useState<number>(
+    U.getMonth(props.date, props.month)
+  );
+  const [year, setYear] = useState<number>(U.getYear(props.date, props.year));
 
   const [weekStart, setWeekStart] = useState<number>(
     new Date(year, month, 1).getDay()
   );
+
+  useEffect(() => {
+    if (props.date !== date && props.date !== null) {
+      setDate(props.date);
+      const d = U.getDay(props.date);
+      const m = U.getMonth(props.date);
+      const y = props.date.getFullYear();
+      setDay(d);
+      setMonth(m);
+      setYear(y);
+      setWeekStart(new Date(y, m, 1).getDay());
+    }
+  }, [props.date]);
 
   const daysInMonth = new Date(year, month + 1, 0).getDate();
 
@@ -71,7 +51,9 @@ export default (props: Props) => {
 
   const handleDayChange = (i: number) => {
     setDay(i);
-    setDate(new Date(year, month, i));
+    const d = new Date(year, month, i);
+    setDate(d);
+    onSelectDate(d);
   };
 
   const handleMonthChange = (i: number) => {
@@ -110,8 +92,8 @@ export default (props: Props) => {
           rows={rows}
           daySelected={getSelectedDay()}
           onDayChange={handleDayChange}
+          color={color}
         />
-        <OK onClick={() => onSelectDate(date)} color={color} />
       </Table>
     </>
   );

@@ -8,10 +8,11 @@ interface Props {
   daySelected: number | null;
   onDayChange: (i: number) => void;
   shrinked?: boolean;
+  color: string;
 }
-const color = "#ef476f";
+
 export default (props: Props) => {
-  const { rows, onDayChange, daySelected, shrinked } = props;
+  const { rows, onDayChange, daySelected, shrinked, color } = props;
   return (
     <>
       <WeekDays shrinked={shrinked} />

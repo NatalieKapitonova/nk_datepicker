@@ -12,13 +12,12 @@ interface Props {
   onMonthChange: (m: number) => void;
 }
 
-const color = "#ef476f";
-
 export const Year = (props: {
   year: number;
   onYearChange: (i: number) => void;
+  color?: string;
 }) => {
-  const { year, onYearChange } = props;
+  const { year, onYearChange, color } = props;
   return (
     <>
       <tr style={{ textAlign: "center" }}>
@@ -50,8 +49,9 @@ const Month = (props: {
   month: number;
   onMonthChange: (i: number) => void;
   enableControls: boolean;
+  color: string;
 }) => {
-  const { month, onMonthChange, enableControls } = props;
+  const { month, onMonthChange, enableControls, color } = props;
   return (
     <>
       <tr style={{ textAlign: "center" }}>
@@ -93,14 +93,18 @@ export default (props: Props) => {
     onMonthChange,
     showYear,
     enableControls,
+    color,
   } = props;
   return (
     <thead style={{ fontWeight: "initial" }}>
-      {showYear && <Year onYearChange={onYearChange} year={year} />}
+      {showYear && (
+        <Year onYearChange={onYearChange} year={year} color={color} />
+      )}
       <Month
         month={month}
         onMonthChange={onMonthChange}
         enableControls={enableControls}
+        color={color}
       />
     </thead>
   );

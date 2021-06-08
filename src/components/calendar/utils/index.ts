@@ -7,7 +7,7 @@ export const getArrOfNumber = (n: number): number[] => {
   return arr;
 };
 export const getPadding = (daysToAdd: number): number[] => {
-  const arr = getArrOfNumber(daysToAdd).map(_ => 0);
+  const arr = getArrOfNumber(daysToAdd).map((_) => 0);
 
   return arr;
 };
@@ -26,4 +26,35 @@ export const splitDaysInWeekRows = (
   }
 
   return chunks;
+};
+
+export const getDay = (d: Date | null, day?: number): number => {
+  if (day) {
+    return day;
+  }
+  if (d) {
+    return d.getDate();
+  }
+
+  return new Date().getDate();
+};
+
+export const getMonth = (d: Date | null, month?: number): number => {
+  if (month !== undefined) {
+    return month;
+  }
+  if (d) {
+    return d.getMonth();
+  }
+  return new Date().getMonth();
+};
+
+export const getYear = (d: Date | null, year?: number) => {
+  if (year) {
+    return year;
+  }
+  if (d) {
+    return d.getFullYear();
+  }
+  return new Date().getFullYear();
 };
