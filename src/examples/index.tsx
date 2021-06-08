@@ -14,7 +14,7 @@ export default () => {
   return (
     <Switch>
       <Layout>
-        {/* <Redirect from={'/'} to={'/examples/date'} /> */}
+        <Redirect from={"/"} to={"/examples/date"} />
         <Route path={"/examples/button"} component={Button} />
         <Route path={"/examples/calendar"} component={Calendar} />
         <Route path={"/examples/calendar-year"} component={CalendarYear} />
