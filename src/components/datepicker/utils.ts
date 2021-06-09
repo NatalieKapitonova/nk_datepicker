@@ -44,11 +44,11 @@ export const formatDateString = (
  * Converts 1-2 digit number into 2-digit
  * @param n  number
  */
-export const getPadding = (n: number) => {
+export const getPadding = (n: number): string => {
   if (n < 10) {
     return `0${n}`;
   }
-  return n;
+  return n.toString();
 };
 
 /**
