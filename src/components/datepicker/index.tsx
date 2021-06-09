@@ -27,7 +27,7 @@ export default (props: T.DatepickerProps) => {
   const [showCalendar, setShowCalendar] = useState<boolean>(false);
   const [isYearCalendar, setIsYearCalendar] = useState<boolean>(false);
   const [dateFormatted, setDateFormatted] = useState<string>(
-    U.formatDate(date, props.pattern)
+    U.formatDateString(date, props.pattern)
   );
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export default (props: T.DatepickerProps) => {
       } else {
         onChange(d, name);
       }
-      setDateFormatted(U.formatDate(d, props.pattern));
+      setDateFormatted(U.formatDateString(d, props.pattern));
       setShowCalendar(false);
       setIsYearCalendar(false);
     }
@@ -64,7 +64,7 @@ export default (props: T.DatepickerProps) => {
     } else {
       onChange(date, name);
     }
-    setDateFormatted(U.formatDate(date, props.pattern));
+    setDateFormatted(U.formatDateString(date, props.pattern));
     setShowCalendar(false);
     setIsYearCalendar(false);
   };
