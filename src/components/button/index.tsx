@@ -82,7 +82,7 @@ const ButtonStyled = styled(ButtonBase)`
   color: ${(props) => getColor(props.variant, props.color)};
   cursor: pointer;
   background-color: ${(props) => getBackground(props.variant, props.color)};
-  transition: 0.2s;
+  transition: 0.1s;
 
   &:hover {
     background-color: ${(props) => props.color || colorDefault};

@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from "react";
-import Header from "../calendar/components/header";
-import Body from "../calendar/components/body";
-import * as U from "./utils";
+import Header from "../components/header";
+import Body from "../components/body";
+import * as U from "../utils";
+import * as T from "../type";
 import styled from "styled-components";
 
-interface Props {
-  date?: Date | null;
-  day?: number;
-  month?: number;
-  year?: number;
-  color?: string;
-  onSelectDate: (date: Date) => void;
-}
+// todo
+const colorDefault = "#ef476f";
 
-export default (props: Props) => {
+export default (props: T.CalemdarProps) => {
   const color = props.color;
   const { onSelectDate } = props;
 
@@ -84,7 +79,7 @@ export default (props: Props) => {
           month={month}
           onMonthChange={handleMonthChange}
           onYearChange={handleYearChange}
-          color={color}
+          color={color || colorDefault}
           showYear={true}
           enableControls={true}
         />
@@ -92,7 +87,7 @@ export default (props: Props) => {
           rows={rows}
           daySelected={getSelectedDay()}
           onDayChange={handleDayChange}
-          color={color}
+          color={color || colorDefault}
         />
       </Table>
     </>

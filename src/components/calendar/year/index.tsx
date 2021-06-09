@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
-import Calendar from "../calendar/components/body";
-import Header from "../calendar/components/header";
-import * as C from "./utils/constants";
-import * as U from "./utils";
+import Calendar from "../components/body";
+import Header from "../components/header";
+import * as C from "../utils/constants";
+import * as U from "../utils";
 
-import Row from "../grid/row";
-import Column from "../grid/column";
+import Row from "../../grid/row";
+import Column from "../../grid/column";
 
 interface Props {
   date?: Date;
@@ -14,7 +14,6 @@ interface Props {
   color?: string;
 }
 
-// todo
 const colorDefault = "#ef476f";
 export default (props: Props) => {
   const { onSelectDate, color } = props;
@@ -35,7 +34,6 @@ export default (props: Props) => {
 
   return (
     <>
-      {/* <div style={{ alignContent: "center", display: "block" }}></div> */}
       <Row>
         <Column size={4}>
           <div

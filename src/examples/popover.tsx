@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import Popover from '../components/popover';
+import React, { useState } from "react";
+import Popover from "../components/popover";
 
-import MonthCalendar from '../components/calendar';
-import YearCalendar from '../components/calendar/year-view';
-import ToggleCalendars from '../components/calendar/toggle';
+import MonthCalendar from "../components/calendar/month";
+import YearCalendar from "../components/calendar/year";
+import ToggleCalendars from "../components/calendar/toggle";
 
-import Button from '../components/button';
+import Button from "../components/button";
 
 export default () => {
   const [openMonth, setOpenMonth] = useState<boolean>(false);
@@ -19,11 +19,11 @@ export default () => {
       style={{
         padding: 50,
         paddingTop: 200,
-        textAlign: 'center',
-        verticalAlign: 'middle'
+        textAlign: "center",
+        verticalAlign: "middle",
       }}
     >
-      <div style={{ verticalAlign: 'center', marginBottom: 50, color: 'gray' }}>
+      <div style={{ verticalAlign: "center", marginBottom: 50, color: "gray" }}>
         <i>{selectedDate && selectedDate.toDateString()}</i>
       </div>
       <Button onClick={() => setOpenMonth(true)}>Month calendar</Button>
@@ -32,7 +32,7 @@ export default () => {
       <Popover open={openMonth} onClose={() => setOpenMonth(false)} size="sm">
         <MonthCalendar
           date={selectedDate}
-          onSelectDate={d => {
+          onSelectDate={(d) => {
             setSelectedDate(d);
             setOpenMonth(false);
           }}
@@ -41,7 +41,7 @@ export default () => {
       <Popover open={openYear} onClose={() => setOpenYear(false)} size="lg">
         <YearCalendar
           date={selectedDate}
-          onSelectDate={d => {
+          onSelectDate={(d) => {
             setSelectedDate(d);
             setOpenYear(false);
           }}
@@ -50,15 +50,15 @@ export default () => {
       <Popover
         open={openZoom}
         onClose={() => setOpenZoom(false)}
-        size={isYearCalendar ? 'lg' : 'sm'}
+        size={isYearCalendar ? "lg" : "sm"}
       >
         <ToggleCalendars
           date={selectedDate}
-          onSelectDate={d => {
+          onSelectDate={(d) => {
             setSelectedDate(d);
             setOpenZoom(false);
           }}
-          onToggle={b => setIsYearCalendar(b)}
+          onToggle={(b) => setIsYearCalendar(b)}
         />
       </Popover>
     </div>

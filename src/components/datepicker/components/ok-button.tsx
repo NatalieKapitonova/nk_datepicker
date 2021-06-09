@@ -10,13 +10,7 @@ interface Props {
 export default (props: Props) => {
   const { onClick, label } = props;
   return (
-    <Button
-      onClick={onClick}
-      size="sm"
-      variant="no-border"
-      round
-      color={props.color}
-    >
+    <Button onClick={onClick} size="sm" variant="no-border" color={props.color}>
       {label}
     </Button>
   );

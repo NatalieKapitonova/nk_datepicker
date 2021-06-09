@@ -1,20 +1,34 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, matchPath } from "react-router-dom";
 
 import styled from "styled-components";
 
 export default (props: { children: React.ReactNode }) => {
+  const routes: { path: string; divide?: boolean; label: string }[] = [
+    { path: "date", divide: true, label: "Datepicker" },
+    { path: "calendar", divide: false, label: "Month calendar" },
+    { path: "calendar-year", divide: true, label: "Year calendar" },
+    { path: "popover", divide: false, label: "Popover" },
+    { path: "button", divide: false, label: "Button" },
+    { path: "input", divide: false, label: "Input" },
+  ];
   return (
     <>
       <Nav>
-        <NavLink to="/examples/date">Datepicker</NavLink>
-        <hr style={{ color: "gray" }} />
-        <NavLink to="/examples/calendar">Month calendar</NavLink>
-        <NavLink to="/examples/calendar-year">Year calendar</NavLink>
-        <hr style={{ color: "gray" }} />
-        <NavLink to="/examples/popover">Popover</NavLink>
-        <NavLink to="/examples/button">Button</NavLink>
-        <NavLink to="/examples/input">Input</NavLink>
+        {routes.map((r, i) => {
+          const isPathActive = !!matchPath(
+            window.location.pathname,
+            `/examples/${r.path}`
+          );
+          return (
+            <>
+              <NavLink key={i} to={`/examples/${r.path}`} active={isPathActive}>
+                {r.label}
+              </NavLink>
+              {r.divide && <hr />}
+            </>
+          );
+        })}
       </Nav>
       <div style={{ marginLeft: "250px" }}>{props.children}</div>
     </>
@@ -36,7 +50,7 @@ const Nav = styled.div`
 `;
 
 const NavLink = styled(Link)`
-  color: #fff;
+  color: ${(props) => (props.active ? "#ef476f" : "#fff")};
   padding: 10px;
   padding-left: 25px;
   text-decoration: none;

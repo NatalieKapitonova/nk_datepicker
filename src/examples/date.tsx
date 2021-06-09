@@ -43,6 +43,10 @@ export default () => {
   };
   return (
     <div style={{ padding: 40, width: "40%" }}>
+      <h2>Datepicker</h2>
+      <p style={{ color: "gray" }}>A simple React-CSS component</p>
+      <br />
+      <br />
       <Box
         title="Standard usage"
         description={
@@ -83,10 +87,18 @@ export default () => {
         title="ISO string output format"
         description={
           <>
-            It is possible to request an ISO string as output date format.
+            Default output date format is Date object, but it possible to
+            request an ISO string.
             <br />
-            The prop <code>outputDateFormat</code> needs to be set to{" "}
-            <code>ISO</code> in this case
+            Prop <code>outputDateFormat</code> can take one of the two values:
+            <ul>
+              <li>
+                <code>Date</code>: default
+              </li>
+              <li>
+                <code>ISO</code>: ISO string
+              </li>
+            </ul>
           </>
         }
         date={isoStringDate.toString()}

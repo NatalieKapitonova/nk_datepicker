@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-import MonthCalendar from ".";
-import YearCalendar from "./year-view";
+import MonthCalendar from "../month";
+import YearCalendar from "../year";
 
 import styled from "styled-components";
 

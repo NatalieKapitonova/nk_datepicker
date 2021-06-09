@@ -5,7 +5,7 @@ import * as T from "./type";
  * @param d
  * @param pattern
  */
-export const formatDate = (
+export const formatDateString = (
   d: Date | null,
   pattern?: T.DateFormat
 ): string | null => {
@@ -58,7 +58,7 @@ export const getPadding = (n: number) => {
  * @param d input Date object
  */
 export const dateToIso = (d: Date): string => {
-  return new Date(formatDate(d, "YYYY-MM-DD")).toISOString();
+  return new Date(formatDateString(d, "YYYY-MM-DD")).toISOString();
 };
 
 /**

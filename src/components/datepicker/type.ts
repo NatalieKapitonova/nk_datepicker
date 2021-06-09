@@ -1,4 +1,4 @@
-export interface Props {
+export interface DatepickerProps {
   date?: Date | string | null;
   name: string;
   disabled?: boolean;

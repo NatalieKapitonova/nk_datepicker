@@ -10,7 +10,7 @@ import * as U from "./utils";
 
 const colorDefault = "#ef476f";
 
-export default (props: T.Props) => {
+export default (props: T.DatepickerProps) => {
   const {
     onChange,
     selectMethod,

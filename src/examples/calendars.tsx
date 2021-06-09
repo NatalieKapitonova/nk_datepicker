@@ -1,8 +1,6 @@
 import React from "react";
-import D from "../components/datepicker";
 
-import Calendar from "../components/calendar";
-import YearCalendar from "../components/calendar/year-view";
+import Calendar from "../components/calendar/month";
 
 export default () => {
   return (
