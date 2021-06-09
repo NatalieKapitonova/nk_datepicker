@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "../../_snowpack/pkg/react.js";
-import Toggle from "../calendar/toggle.js";
+import Toggle from "../calendar/toggle/index.js";
 import Input from "../input/index.js";
 import Popover from "../popover/index.js";
 import Btn from "./components/ok-button.js";
@@ -19,7 +19,7 @@ export default (props) => {
   const [date, setDate] = useState(props.date ? U.getDate(props.date) : null);
   const [showCalendar, setShowCalendar] = useState(false);
   const [isYearCalendar, setIsYearCalendar] = useState(false);
-  const [dateFormatted, setDateFormatted] = useState(U.formatDate(date, props.pattern));
+  const [dateFormatted, setDateFormatted] = useState(U.formatDateString(date, props.pattern));
   useEffect(() => {
     if (props.date && props.date !== date) {
       setDate(U.getDate(props.date));
@@ -37,7 +37,7 @@ export default (props) => {
       } else {
         onChange(d, name);
       }
-      setDateFormatted(U.formatDate(d, props.pattern));
+      setDateFormatted(U.formatDateString(d, props.pattern));
       setShowCalendar(false);
       setIsYearCalendar(false);
     }
@@ -51,7 +51,7 @@ export default (props) => {
     } else {
       onChange(date, name);
     }
-    setDateFormatted(U.formatDate(date, props.pattern));
+    setDateFormatted(U.formatDateString(date, props.pattern));
     setShowCalendar(false);
     setIsYearCalendar(false);
   };

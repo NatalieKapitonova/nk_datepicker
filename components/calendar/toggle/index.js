@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from "../../_snowpack/pkg/react.js";
-import MonthCalendar from "./index.js";
-import YearCalendar from "./year-view.js";
-import styled from "../../_snowpack/pkg/styled-components.js";
+import React, {useState, useEffect} from "../../../_snowpack/pkg/react.js";
+import MonthCalendar from "../month/index.js";
+import YearCalendar from "../year/index.js";
+import styled from "../../../_snowpack/pkg/styled-components.js";
 export default (props) => {
   const {onSelectDate, onToggle, color} = props;
   const [isYearCalendar, setIsYearCalendar] = useState(false);

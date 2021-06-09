@@ -376,7 +376,7 @@ function createBrowserHistory(props) {
     props = {};
   }
 
-  !canUseDOM ? invariant(false) : void 0;
+  !canUseDOM ?  invariant(false) : void 0;
   var globalHistory = window.history;
   var canUseHistory = supportsHistory();
   var needsHashChangeListener = !supportsPopStateOnHashChange();
@@ -656,9 +656,9 @@ function createHashHistory(props) {
     props = {};
   }
 
-  !canUseDOM ? invariant(false) : void 0;
+  !canUseDOM ?  invariant(false) : void 0;
   var globalHistory = window.history;
-  supportsGoWithoutReloadUsingHash();
+  var canGoWithoutReload = supportsGoWithoutReloadUsingHash();
   var _props = props,
       _props$getUserConfirm = _props.getUserConfirmation,
       getUserConfirmation = _props$getUserConfirm === void 0 ? getConfirmation : _props$getUserConfirm,

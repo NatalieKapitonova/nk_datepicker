@@ -1,5 +1,5 @@
 import React from "../_snowpack/pkg/react.js";
-import Calendar from "../components/calendar/index.js";
+import Calendar from "../components/calendar/month/index.js";
 export default () => {
   return /* @__PURE__ */ React.createElement("div", {
     style: {padding: 40, flexDirection: "row"}

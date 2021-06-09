@@ -19,7 +19,9 @@ export default () => {
   };
   return /* @__PURE__ */ React.createElement("div", {
     style: {padding: 40, width: "40%"}
-  }, /* @__PURE__ */ React.createElement(Box, {
+  }, /* @__PURE__ */ React.createElement("h2", null, "Datepicker"), /* @__PURE__ */ React.createElement("p", {
+    style: {color: "gray"}
+  }, "A simple React-CSS component"), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement(Box, {
     title: "Standard usage",
     description: /* @__PURE__ */ React.createElement(React.Fragment, null, "Default behavior of the datepicker: input format is", " ", /* @__PURE__ */ React.createElement("code", null, "DD.MM.YYYY"), ",", /* @__PURE__ */ React.createElement("br", null), "output date format is Date object"),
     date: date.toString()
@@ -38,7 +40,7 @@ export default () => {
     showClear: true
   })), /* @__PURE__ */ React.createElement(Box, {
     title: "ISO string output format",
-    description: /* @__PURE__ */ React.createElement(React.Fragment, null, "It is possible to request an ISO string as output date format.", /* @__PURE__ */ React.createElement("br", null), "The prop ", /* @__PURE__ */ React.createElement("code", null, "outputDateFormat"), " needs to be set to", " ", /* @__PURE__ */ React.createElement("code", null, "ISO"), " in this case"),
+    description: /* @__PURE__ */ React.createElement(React.Fragment, null, "Default output date format is Date object, but it possible to request an ISO string.", /* @__PURE__ */ React.createElement("br", null), "Prop ", /* @__PURE__ */ React.createElement("code", null, "outputDateFormat"), " can take one of the two values:", /* @__PURE__ */ React.createElement("ul", null, /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement("code", null, "Date"), ": default"), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement("code", null, "ISO"), ": ISO string"))),
     date: isoStringDate.toString()
   }, /* @__PURE__ */ React.createElement(Datepicker, {
     name: "date4",

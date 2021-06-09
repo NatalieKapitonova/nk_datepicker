@@ -1,10 +1,10 @@
-import React, {useState} from "../../_snowpack/pkg/react.js";
-import Calendar from "./components/body.js";
-import Header from "./components/header.js";
-import * as C from "./utils/constants.js";
-import * as U from "./utils/index.js";
-import Row from "../grid/row.js";
-import Column from "../grid/column.js";
+import React, {useState} from "../../../_snowpack/pkg/react.js";
+import Calendar from "../components/body.js";
+import Header from "../components/header.js";
+import * as C from "../utils/constants.js";
+import * as U from "../utils/index.js";
+import Row from "../../grid/row.js";
+import Column from "../../grid/column.js";
 const colorDefault = "#ef476f";
 export default (props) => {
   const {onSelectDate, color} = props;

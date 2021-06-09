@@ -1,4 +1,4 @@
-export const formatDate = (d, pattern) => {
+export const formatDateString = (d, pattern) => {
   if (!d) {
     return null;
   }
@@ -32,10 +32,10 @@ export const getPadding = (n) => {
   if (n < 10) {
     return `0${n}`;
   }
-  return n;
+  return n.toString();
 };
 export const dateToIso = (d) => {
-  return new Date(formatDate(d, "YYYY-MM-DD")).toISOString();
+  return new Date(formatDateString(d, "YYYY-MM-DD")).toISOString();
 };
 export const getDate = (d) => {
   if (!d) {

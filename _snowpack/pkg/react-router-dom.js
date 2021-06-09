@@ -1,5 +1,5 @@
 import { c as createCommonjsModule, r as react } from './common/index-ae389540.js';
-import { b as createMemoryHistory, i as invariant, d as createLocation, _ as _extends, l as locationsAreEqual, e as createPath, c as createBrowserHistory, a as createHashHistory } from './common/history-324a5d0a.js';
+import { b as createMemoryHistory, i as invariant, d as createLocation, _ as _extends, l as locationsAreEqual, e as createPath, c as createBrowserHistory, a as createHashHistory } from './common/history-252f7041.js';
 import './common/hoist-non-react-statics.cjs-3e3ef147.js';
 
 function _setPrototypeOf(o, p) {
@@ -818,8 +818,9 @@ function (_React$Component) {
  * The public API for a <Router> that stores location in memory.
  */
 
+var MemoryRouter =
 /*#__PURE__*/
-(function (_React$Component) {
+function (_React$Component) {
   _inheritsLoose(MemoryRouter, _React$Component);
 
   function MemoryRouter() {
@@ -844,7 +845,7 @@ function (_React$Component) {
   };
 
   return MemoryRouter;
-})(react.Component);
+}(react.Component);
 
 var Lifecycle =
 /*#__PURE__*/
@@ -920,7 +921,7 @@ function Redirect(_ref) {
       _ref$push = _ref.push,
       push = _ref$push === void 0 ? false : _ref$push;
   return react.createElement(context.Consumer, null, function (context) {
-    !context ? invariant(false) : void 0;
+    !context ?  invariant(false) : void 0;
     var history = context.history,
         staticContext = context.staticContext;
     var method = push ? history.push : history.replace;
@@ -1051,7 +1052,7 @@ function (_React$Component) {
     var _this = this;
 
     return react.createElement(context.Consumer, null, function (context$1) {
-      !context$1 ? invariant(false) : void 0;
+      !context$1 ?  invariant(false) : void 0;
       var location = _this.props.location || context$1.location;
       var match = _this.props.computedMatch ? _this.props.computedMatch // <Switch> already computed the match for us
       : _this.props.path ? matchPath(location.pathname, _this.props) : context$1.match;
@@ -1073,7 +1074,7 @@ function (_React$Component) {
 
       return react.createElement(context.Provider, {
         value: props
-      }, props.match ? children ? typeof children === "function" ? children(props) : children : component ? react.createElement(component, props) : render ? render(props) : null : typeof children === "function" ? children(props) : null);
+      }, props.match ? children ? typeof children === "function" ?  children(props) : children : component ? react.createElement(component, props) : render ? render(props) : null : typeof children === "function" ?  children(props) : null);
     });
   };
 
@@ -1106,7 +1107,7 @@ function createURL(location) {
 
 function staticHandler(methodName) {
   return function () {
-     invariant(false) ;
+      invariant(false) ;
   };
 }
 
@@ -1119,8 +1120,9 @@ function noop() {}
  */
 
 
+var StaticRouter =
 /*#__PURE__*/
-(function (_React$Component) {
+function (_React$Component) {
   _inheritsLoose(StaticRouter, _React$Component);
 
   function StaticRouter() {
@@ -1195,7 +1197,7 @@ function noop() {}
   };
 
   return StaticRouter;
-})(react.Component);
+}(react.Component);
 
 /**
  * The public API for rendering the first <Route> that matches.
@@ -1216,7 +1218,7 @@ function (_React$Component) {
     var _this = this;
 
     return react.createElement(context.Consumer, null, function (context) {
-      !context ? invariant(false) : void 0;
+      !context ?  invariant(false) : void 0;
       var location = _this.props.location || context.location;
       var element, match; // We use React.Children.forEach instead of React.Children.toArray().find()
       // here because toArray adds keys to all child elements and we do not want
@@ -1242,7 +1244,7 @@ function (_React$Component) {
   return Switch;
 }(react.Component);
 
-react.useContext;
+var useContext = react.useContext;
 
 /**
  * The public API for a <Router> that uses HTML5 history.
@@ -1281,8 +1283,9 @@ function (_React$Component) {
  * The public API for a <Router> that uses window.location.hash.
  */
 
+var HashRouter =
 /*#__PURE__*/
-(function (_React$Component) {
+function (_React$Component) {
   _inheritsLoose(HashRouter, _React$Component);
 
   function HashRouter() {
@@ -1307,7 +1310,7 @@ function (_React$Component) {
   };
 
   return HashRouter;
-})(react.Component);
+}(react.Component);
 
 var resolveToLocation = function resolveToLocation(to, currentLocation) {
   return typeof to === "function" ? to(currentLocation) : to;
@@ -1383,7 +1386,7 @@ var Link = forwardRef(function (_ref2, forwardedRef) {
       rest = _objectWithoutPropertiesLoose(_ref2, ["component", "replace", "to", "innerRef"]);
 
   return react.createElement(context.Consumer, null, function (context) {
-    !context ? invariant(false) : void 0;
+    !context ?  invariant(false) : void 0;
     var history = context.history;
     var location = normalizeToLocation(resolveToLocation(to, context.location), context.location);
     var href = location ? history.createHref(location) : "";
@@ -1432,7 +1435,7 @@ function joinClassnames() {
  */
 
 
-forwardRef$1(function (_ref, forwardedRef) {
+var NavLink = forwardRef$1(function (_ref, forwardedRef) {
   var _ref$ariaCurrent = _ref["aria-current"],
       ariaCurrent = _ref$ariaCurrent === void 0 ? "page" : _ref$ariaCurrent,
       _ref$activeClassName = _ref.activeClassName,
@@ -1450,7 +1453,7 @@ forwardRef$1(function (_ref, forwardedRef) {
       rest = _objectWithoutPropertiesLoose(_ref, ["aria-current", "activeClassName", "activeStyle", "className", "exact", "isActive", "location", "sensitive", "strict", "style", "to", "innerRef"]);
 
   return react.createElement(context.Consumer, null, function (context) {
-    !context ? invariant(false) : void 0;
+    !context ?  invariant(false) : void 0;
     var currentLocation = locationProp || context.location;
     var toLocation = normalizeToLocation(resolveToLocation(to, currentLocation), currentLocation);
     var path = toLocation.pathname; // Regex taken from: https://github.com/pillarjs/path-to-regexp/blob/master/index.js#L202
@@ -1484,4 +1487,4 @@ forwardRef$1(function (_ref, forwardedRef) {
   });
 });
 
-export { BrowserRouter, Link, Redirect, Route, Router, Switch };
+export { BrowserRouter, Link, Redirect, Route, Router, Switch, matchPath };

@@ -39,7 +39,7 @@ const ModalContent = styled.div`
   transition: width 0.3s, height 0.5s;
 
   animation-name: fade-in-up;
-  animation-duration: 1s;
+  animation-duration: 0.8s;
 
   @keyframes fade-in-up {
     from {

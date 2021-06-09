@@ -1,24 +1,23 @@
 import React from "../_snowpack/pkg/react.js";
-import {Link} from "../_snowpack/pkg/react-router-dom.js";
+import {Link, matchPath} from "../_snowpack/pkg/react-router-dom.js";
 import styled from "../_snowpack/pkg/styled-components.js";
 export default (props) => {
-  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Nav, null, /* @__PURE__ */ React.createElement(NavLink, {
-    to: "/examples/date"
-  }, "Datepicker"), /* @__PURE__ */ React.createElement("hr", {
-    style: {color: "gray"}
-  }), /* @__PURE__ */ React.createElement(NavLink, {
-    to: "/examples/calendar"
-  }, "Month calendar"), /* @__PURE__ */ React.createElement(NavLink, {
-    to: "/examples/calendar-year"
-  }, "Year calendar"), /* @__PURE__ */ React.createElement("hr", {
-    style: {color: "gray"}
-  }), /* @__PURE__ */ React.createElement(NavLink, {
-    to: "/examples/popover"
-  }, "Popover"), /* @__PURE__ */ React.createElement(NavLink, {
-    to: "/examples/button"
-  }, "Button"), /* @__PURE__ */ React.createElement(NavLink, {
-    to: "/examples/input"
-  }, "Input")), /* @__PURE__ */ React.createElement("div", {
+  const routes = [
+    {path: "date", divide: true, label: "Datepicker"},
+    {path: "calendar", divide: false, label: "Month calendar"},
+    {path: "calendar-year", divide: true, label: "Year calendar"},
+    {path: "popover", divide: false, label: "Popover"},
+    {path: "button", divide: false, label: "Button"},
+    {path: "input", divide: false, label: "Input"}
+  ];
+  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Nav, null, routes.map((r, i) => {
+    const isPathActive = !!matchPath(window.location.pathname, `/examples/${r.path}`);
+    return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(NavLink, {
+      key: i,
+      to: `/examples/${r.path}`,
+      active: isPathActive
+    }, r.label), r.divide && /* @__PURE__ */ React.createElement("hr", null));
+  })), /* @__PURE__ */ React.createElement("div", {
     style: {marginLeft: "250px"}
   }, props.children));
 };
@@ -36,7 +35,7 @@ const Nav = styled.div`
   width: 250px;
 `;
 const NavLink = styled(Link)`
-  color: #fff;
+  color: ${(props) => props.active ? "#ef476f" : "#fff"};
   padding: 10px;
   padding-left: 25px;
   text-decoration: none;

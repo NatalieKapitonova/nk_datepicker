@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from "../../_snowpack/pkg/react.js";
-import Header from "./components/header.js";
-import Body from "./components/body.js";
-import * as U from "./utils/index.js";
-import styled from "../../_snowpack/pkg/styled-components.js";
+import React, {useState, useEffect} from "../../../_snowpack/pkg/react.js";
+import Header from "../components/header.js";
+import Body from "../components/body.js";
+import * as U from "../utils/index.js";
+import styled from "../../../_snowpack/pkg/styled-components.js";
+const colorDefault = "#ef476f";
 export default (props) => {
   const color = props.color;
   const {onSelectDate} = props;
@@ -58,14 +59,14 @@ export default (props) => {
     month,
     onMonthChange: handleMonthChange,
     onYearChange: handleYearChange,
-    color,
+    color: color || colorDefault,
     showYear: true,
     enableControls: true
   }), /* @__PURE__ */ React.createElement(Body, {
     rows,
     daySelected: getSelectedDay(),
     onDayChange: handleDayChange,
-    color
+    color: color || colorDefault
   })));
 };
 const Table = styled.table`

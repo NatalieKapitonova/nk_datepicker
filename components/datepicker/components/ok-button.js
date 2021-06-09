@@ -6,7 +6,6 @@ export default (props) => {
     onClick,
     size: "sm",
     variant: "no-border",
-    round: true,
     color: props.color
   }, label);
 };

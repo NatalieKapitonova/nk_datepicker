@@ -1,8 +1,8 @@
 import React, {useState} from "../_snowpack/pkg/react.js";
 import Popover from "../components/popover/index.js";
-import MonthCalendar from "../components/calendar/index.js";
-import YearCalendar from "../components/calendar/year-view.js";
-import ToggleCalendars from "../components/calendar/toggle.js";
+import MonthCalendar from "../components/calendar/month/index.js";
+import YearCalendar from "../components/calendar/year/index.js";
+import ToggleCalendars from "../components/calendar/toggle/index.js";
 import Button from "../components/button/index.js";
 export default () => {
   const [openMonth, setOpenMonth] = useState(false);
