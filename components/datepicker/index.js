@@ -82,7 +82,7 @@ export default (props) => {
     onSelectDate: handleSelectDate,
     onToggle: handleToggle,
     color: color || colorDefault
-  }), showClear && /* @__PURE__ */ React.createElement(Btn, {
+  }), /* @__PURE__ */ React.createElement("br", null), showClear && /* @__PURE__ */ React.createElement(Btn, {
     onClick: () => handleClear(),
     color: color || colorDefault,
     label: "Clear"

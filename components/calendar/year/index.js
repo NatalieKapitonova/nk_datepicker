@@ -7,6 +7,7 @@ import Row from "../../grid/row.js";
 import Column from "../../grid/column.js";
 const colorDefault = "#ef476f";
 export default (props) => {
+  const {mobile} = U.useWindowDimensions();
   const {onSelectDate, color} = props;
   const [date, setDate] = useState(props.date || new Date());
   const [day, setDay] = useState(date.getDate());
@@ -62,7 +63,7 @@ export default (props) => {
       return null;
     };
     return /* @__PURE__ */ React.createElement(Column, {
-      size: 3
+      size: mobile ? 4 : 3
     }, /* @__PURE__ */ React.createElement(Header, {
       color: color || colorDefault,
       year,
@@ -73,12 +74,12 @@ export default (props) => {
       },
       onYearChange: () => {
       }
-    }), /* @__PURE__ */ React.createElement(Calendar, {
+    }), /* @__PURE__ */ React.createElement("table", null, /* @__PURE__ */ React.createElement(Calendar, {
       rows,
       daySelected: getSelectedDay(),
       onDayChange: (d) => handleDayChange(d, i),
       color: color || colorDefault,
       shrinked: true
-    }));
+    })));
   })));
 };

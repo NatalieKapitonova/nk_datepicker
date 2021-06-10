@@ -1,5 +1,6 @@
 import React, {useState} from "../_snowpack/pkg/react.js";
 import Datepicker from "../components/datepicker/index.js";
+import {useWindowDimensions} from "../components/calendar/utils/index.js";
 const Box = (props) => {
   const {title, description, date} = props;
   return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("strong", null, title), /* @__PURE__ */ React.createElement("p", {
@@ -9,6 +10,7 @@ const Box = (props) => {
   }, /* @__PURE__ */ React.createElement("small", null, date)), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("br", null));
 };
 export default () => {
+  const {mobile} = useWindowDimensions();
   const [date, setDate] = useState(new Date());
   const [dateNullable, setDateNullable] = useState(null);
   const [isoStringDate, setIsoStringDate] = useState(new Date().toISOString());
@@ -18,7 +20,7 @@ export default () => {
     setDate(d);
   };
   return /* @__PURE__ */ React.createElement("div", {
-    style: {padding: 40, width: "40%"}
+    style: {padding: mobile ? 10 : 40, width: mobile ? "100%" : "50%"}
   }, /* @__PURE__ */ React.createElement("h2", null, "Datepicker"), /* @__PURE__ */ React.createElement("p", {
     style: {color: "gray"}
   }, "A simple React-CSS component"), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement(Box, {

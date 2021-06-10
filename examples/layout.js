@@ -1,7 +1,9 @@
 import React from "../_snowpack/pkg/react.js";
 import {Link, matchPath} from "../_snowpack/pkg/react-router-dom.js";
 import styled from "../_snowpack/pkg/styled-components.js";
+import {useWindowDimensions} from "../components/calendar/utils/index.js";
 export default (props) => {
+  const {mobile} = useWindowDimensions();
   const routes = [
     {path: "date", divide: true, label: "Datepicker"},
     {path: "calendar", divide: false, label: "Month calendar"},
@@ -10,7 +12,9 @@ export default (props) => {
     {path: "button", divide: false, label: "Button"},
     {path: "input", divide: false, label: "Input"}
   ];
-  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Nav, null, routes.map((r, i) => {
+  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Nav, {
+    mobile
+  }, routes.map((r, i) => {
     const isPathActive = !!matchPath(window.location.pathname, `/examples/${r.path}`);
     return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(NavLink, {
       key: i,
@@ -18,7 +22,7 @@ export default (props) => {
       active: isPathActive
     }, r.label), r.divide && /* @__PURE__ */ React.createElement("hr", null));
   })), /* @__PURE__ */ React.createElement("div", {
-    style: {marginLeft: "250px"}
+    style: {marginLeft: mobile ? "0" : "250px"}
   }, props.children));
 };
 const Nav = styled.div`
@@ -32,7 +36,10 @@ const Nav = styled.div`
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
-  width: 250px;
+  width: ${(props) => {
+  console.log(props.mobile);
+  return props.mobile ? "0" : "250px";
+}};
 `;
 const NavLink = styled(Link)`
   color: ${(props) => props.active ? "#ef476f" : "#fff"};

@@ -1,3 +1,4 @@
+import {useState, useEffect} from "../../../_snowpack/pkg/react.js";
 export const getArrOfNumber = (n) => {
   const arr = [];
   for (let i = 0; i < n; i++) {
@@ -43,4 +44,25 @@ export const getYear = (d, year) => {
     return d.getFullYear();
   }
   return new Date().getFullYear();
+};
+const getWindowDimensions = () => {
+  const mobileDisplayThreshold = 768;
+  const {innerWidth: width, innerHeight: height} = window;
+  const mobile = width < mobileDisplayThreshold;
+  return {
+    width,
+    height,
+    mobile
+  };
+};
+export const useWindowDimensions = () => {
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowDimensions(getWindowDimensions());
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  return windowDimensions;
 };

@@ -71,4 +71,5 @@ export default (props) => {
 };
 const Table = styled.table`
   border: none;
+  width: 100%;
 `;

@@ -1,10 +1,13 @@
 import React from "../../_snowpack/pkg/react.js";
 import styled from "../../_snowpack/pkg/styled-components.js";
+import {useWindowDimensions} from "../calendar/utils/index.js";
 export default (props) => {
   const {children, open, size} = props;
+  const {mobile} = useWindowDimensions();
   if (open) {
     return /* @__PURE__ */ React.createElement(Modal, null, /* @__PURE__ */ React.createElement(ModalContent, {
-      size
+      size,
+      mobile
     }, /* @__PURE__ */ React.createElement(Close, {
       onClick: () => props.onClose && props.onClose()
     }, "×"), children));
@@ -22,17 +25,45 @@ const Modal = styled.div`
   background-color: rgba(0, 0, 0, 0.4);
   display: block;
 `;
+const getWidth = (size, mobile) => {
+  if (size === "sm") {
+    return "250px";
+  }
+  if (mobile) {
+    return "100%";
+  }
+  return "1000px";
+};
+const getPaddingLeft = (size, mobile) => {
+  if (size === "sm") {
+    return "30px";
+  }
+  if (mobile) {
+    return "10px";
+  }
+  return "50px";
+};
+const getPaddingRight = (size, mobile) => {
+  if (size === "sm") {
+    return "30px";
+  }
+  if (mobile) {
+    return "10px";
+  }
+  return "50px";
+};
 const ModalContent = styled.div`
   background-color: #fefefe;
   text-align: center;
-  margin: 10% auto;
-  top: -100px;
-  padding: 15px;
+  margin: ${(props) => props.mobile && props.size === "lg" ? "0" : "10% auto"};
+  top: ${(props) => props.mobile ? "0" : "-100px"};
+  padding-bottom: ${(props) => props.mobile ? "15px" : "30px"};
   padding-top: 30px;
-  padding-left: ${(props) => props.size === "sm" ? "30px" : "50px"};
+  padding-left: ${(props) => getPaddingLeft(props.size, props.mobile)};
+  padding-right: ${(props) => getPaddingRight(props.size, props.mobile)};
   margin-bottom: ${(props) => props.size === "sm" ? "15px" : "50px"};
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  width: ${(props) => props.size === "sm" ? "300px" : "1000px"};
+  width: ${(props) => getWidth(props.size, props.mobile)};
   position: relative;
   overflow: hidden;
 
@@ -67,6 +98,7 @@ const Close = styled.span`
   color: #aaa;
   float: right;
   margin-top: -22px;
+  margin-right: 10px;
   font-size: 30px;
   cursor: pointer;
 `;
