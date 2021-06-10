@@ -96,4 +96,5 @@ export default (props: T.CalemdarProps) => {
 
 const Table = styled.table`
   border: none;
+  width: 100%;
 `;

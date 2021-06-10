@@ -102,6 +102,8 @@ export default (props: T.DatepickerProps) => {
           onToggle={handleToggle}
           color={color || colorDefault}
         />
+        <br />
+
         {showClear && (
           <Btn
             onClick={() => handleClear()}

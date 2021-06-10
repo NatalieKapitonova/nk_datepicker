@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 export const getArrOfNumber = (n: number): number[] => {
   const arr: number[] = [];
   for (let i = 0; i < n; i++) {
@@ -57,4 +59,33 @@ export const getYear = (d: Date | null, year?: number) => {
     return d.getFullYear();
   }
   return new Date().getFullYear();
+};
+
+// https://stackoverflow.com/questions/36862334/get-viewport-window-height-in-reactjs
+const getWindowDimensions = () => {
+  const mobileDisplayThreshold = 768;
+  const { innerWidth: width, innerHeight: height } = window;
+  const mobile = width < mobileDisplayThreshold;
+  return {
+    width,
+    height,
+    mobile,
+  };
+};
+
+export const useWindowDimensions = () => {
+  const [windowDimensions, setWindowDimensions] = useState(
+    getWindowDimensions()
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowDimensions(getWindowDimensions());
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return windowDimensions;
 };

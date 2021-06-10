@@ -2,8 +2,11 @@ import React from "react";
 import { Link, matchPath } from "react-router-dom";
 
 import styled from "styled-components";
+import { useWindowDimensions } from "../components/calendar/utils";
 
 export default (props: { children: React.ReactNode }) => {
+  const { mobile } = useWindowDimensions();
+
   const routes: { path: string; divide?: boolean; label: string }[] = [
     { path: "date", divide: true, label: "Datepicker" },
     { path: "calendar", divide: false, label: "Month calendar" },
@@ -14,7 +17,7 @@ export default (props: { children: React.ReactNode }) => {
   ];
   return (
     <>
-      <Nav>
+      <Nav mobile={mobile}>
         {routes.map((r, i) => {
           const isPathActive = !!matchPath(
             window.location.pathname,
@@ -30,7 +33,7 @@ export default (props: { children: React.ReactNode }) => {
           );
         })}
       </Nav>
-      <div style={{ marginLeft: "250px" }}>{props.children}</div>
+      <div style={{ marginLeft: mobile ? "0" : "250px" }}>{props.children}</div>
     </>
   );
 };
@@ -46,7 +49,10 @@ const Nav = styled.div`
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
-  width: 250px;
+  width: ${(props) => {
+    console.log(props.mobile);
+    return props.mobile ? "0" : "250px";
+  }};
 `;
 
 const NavLink = styled(Link)`

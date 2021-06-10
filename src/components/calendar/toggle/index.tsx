@@ -19,7 +19,6 @@ export default (props: Props) => {
 
   useEffect(() => {
     if (props.date !== date) {
-      console.log("here?");
       setDate(props.date);
     }
   }, [props.date]);
@@ -72,7 +71,7 @@ const ToggleIcon = styled.span`
   color: #aaa;
   float: right;
   margin-top: -15px;
-  margin-right: 10px;
+  margin-right: 20px;
   cursor: pointer;
   font-size: 1.5em;
   margin-top: -16px;

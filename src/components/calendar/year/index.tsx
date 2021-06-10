@@ -16,6 +16,7 @@ interface Props {
 
 const colorDefault = "#ef476f";
 export default (props: Props) => {
+  const { mobile } = U.useWindowDimensions();
   const { onSelectDate, color } = props;
   const [date, setDate] = useState<Date>(props.date || new Date());
   const [day, setDay] = useState<number>(date.getDate());
@@ -91,7 +92,7 @@ export default (props: Props) => {
           };
 
           return (
-            <Column size={3}>
+            <Column size={mobile ? 4 : 3}>
               <Header
                 color={color || colorDefault}
                 year={year}
@@ -101,13 +102,15 @@ export default (props: Props) => {
                 onMonthChange={() => {}}
                 onYearChange={() => {}}
               />
-              <Calendar
-                rows={rows}
-                daySelected={getSelectedDay()}
-                onDayChange={(d) => handleDayChange(d, i)}
-                color={color || colorDefault}
-                shrinked
-              />
+              <table>
+                <Calendar
+                  rows={rows}
+                  daySelected={getSelectedDay()}
+                  onDayChange={(d) => handleDayChange(d, i)}
+                  color={color || colorDefault}
+                  shrinked
+                />
+              </table>
             </Column>
           );
         })}

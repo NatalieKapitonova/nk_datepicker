@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useWindowDimensions } from "../calendar/utils";
 
 interface Props {
   open: boolean;
@@ -10,12 +11,13 @@ interface Props {
 
 export default (props: Props) => {
   const { children, open, size } = props;
+  const { mobile } = useWindowDimensions();
   // const [open, setOpen] = useState<boolean>(props.open);
 
   if (open) {
     return (
       <Modal>
-        <ModalContent size={size}>
+        <ModalContent size={size} mobile={mobile}>
           <Close onClick={() => props.onClose && props.onClose()}>
             &times;
           </Close>
@@ -39,20 +41,54 @@ const Modal = styled.div`
   display: block;
 `;
 
+const getWidth = (size: "sm" | "lg", mobile: boolean) => {
+  if (size === "sm") {
+    return "250px";
+  }
+
+  if (mobile) {
+    return "100%";
+  }
+  return "1000px";
+};
+
+const getPaddingLeft = (size: "sm" | "lg", mobile: boolean) => {
+  if (size === "sm") {
+    return "30px";
+  }
+  if (mobile) {
+    return "10px";
+  }
+  return "50px";
+};
+
+const getPaddingRight = (size: "sm" | "lg", mobile: boolean) => {
+  if (size === "sm") {
+    return "30px";
+  }
+  if (mobile) {
+    return "10px";
+  }
+  return "50px";
+};
+
 const ModalContent = styled.div`
   background-color: #fefefe;
   text-align: center;
-  margin: 10% auto;
-  top: -100px;
-  padding: 15px;
+  margin: ${(props) =>
+    props.mobile && props.size === "lg" ? "0" : "10% auto"};
+  top: ${(props) => (props.mobile ? "0" : "-100px")};
+  padding-bottom: ${(props) => (props.mobile ? "15px" : "30px")};
   padding-top: 30px;
-  padding-left: ${(props: { size: "sm" | "lg" }) =>
-    props.size === "sm" ? "30px" : "50px"};
+  padding-left: ${(props: { size: "sm" | "lg"; mobile: boolean }) =>
+    getPaddingLeft(props.size, props.mobile)};
+  padding-right: ${(props: { size: "sm" | "lg"; mobile: boolean }) =>
+    getPaddingRight(props.size, props.mobile)};
   margin-bottom: ${(props: { size: "sm" | "lg" }) =>
     props.size === "sm" ? "15px" : "50px"};
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  width: ${(props: { size: "sm" | "lg" }) =>
-    props.size === "sm" ? "300px" : "1000px"};
+  width: ${(props: { size: "sm" | "lg"; mobile: boolean }) =>
+    getWidth(props.size, props.mobile)};
   position: relative;
   overflow: hidden;
 
@@ -88,6 +124,7 @@ const Close = styled.span`
   color: #aaa;
   float: right;
   margin-top: -22px;
+  margin-right: 10px;
   font-size: 30px;
   cursor: pointer;
 `;

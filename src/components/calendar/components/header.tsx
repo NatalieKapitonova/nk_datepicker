@@ -1,6 +1,7 @@
 import React from "react";
 
 import * as C from "../utils/constants";
+import { useWindowDimensions } from "../utils";
 
 interface Props {
   color: string;
@@ -18,10 +19,14 @@ export const Year = (props: {
   color?: string;
 }) => {
   const { year, onYearChange, color } = props;
+  const { mobile } = useWindowDimensions();
   return (
     <>
       <tr style={{ textAlign: "center" }}>
-        <td colSpan={1} style={{ fontSize: "0.7em", color: "gray" }}>
+        <td
+          colSpan={1}
+          style={{ fontSize: mobile ? "0.5em" : "0.7em", color: "gray" }}
+        >
           <span
             style={{ cursor: "pointer" }}
             onClick={() => onYearChange(year - 1)}
@@ -29,10 +34,13 @@ export const Year = (props: {
             {year - 1}
           </span>
         </td>
-        <td colSpan={5} style={{ color, fontSize: "1.4em" }}>
+        <td colSpan={5} style={{ color, fontSize: mobile ? "1.1em" : "1.4em" }}>
           {year}
         </td>
-        <td colSpan={1} style={{ fontSize: "0.7em", color: "gray" }}>
+        <td
+          colSpan={1}
+          style={{ fontSize: mobile ? "0.5em" : "0.7em", color: "gray" }}
+        >
           <span
             style={{ cursor: "pointer" }}
             onClick={() => onYearChange(year + 1)}
@@ -52,10 +60,14 @@ const Month = (props: {
   color: string;
 }) => {
   const { month, onMonthChange, enableControls, color } = props;
+  const { mobile } = useWindowDimensions();
   return (
     <>
       <tr style={{ textAlign: "center" }}>
-        <td colSpan={1} style={{ fontSize: "0.7em", color: "gray" }}>
+        <td
+          colSpan={1}
+          style={{ fontSize: mobile ? "0.5em" : "0.7em", color: "gray" }}
+        >
           {enableControls && (
             <span
               style={{ cursor: "pointer" }}
@@ -68,10 +80,16 @@ const Month = (props: {
             </span>
           )}
         </td>
-        <td colSpan={5} style={{ padding: 10, color, fontSize: "1.4em" }}>
+        <td
+          colSpan={5}
+          style={{ padding: 10, color, fontSize: mobile ? "1.1em" : "1.4em" }}
+        >
           {C.months[month]}
         </td>
-        <td colSpan={1} style={{ fontSize: "0.7em", color: "gray" }}>
+        <td
+          colSpan={1}
+          style={{ fontSize: mobile ? "0.5em" : "0.7em", color: "gray" }}
+        >
           {enableControls && (
             <span
               style={{ cursor: "pointer" }}

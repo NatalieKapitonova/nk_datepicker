@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import Datepicker from "../components/datepicker";
+import { useWindowDimensions } from "../components/calendar/utils";
 
 type DateType = Date | string | null;
 
@@ -28,6 +29,7 @@ const Box = (props: {
   );
 };
 export default () => {
+  const { mobile } = useWindowDimensions();
   const [date, setDate] = useState<DateType>(new Date());
   const [dateNullable, setDateNullable] = useState<DateType>(null);
   const [isoStringDate, setIsoStringDate] = useState<DateType>(
@@ -42,7 +44,7 @@ export default () => {
     setDate(d);
   };
   return (
-    <div style={{ padding: 40, width: "40%" }}>
+    <div style={{ padding: mobile ? 10 : 40, width: mobile ? "100%" : "50%" }}>
       <h2>Datepicker</h2>
       <p style={{ color: "gray" }}>A simple React-CSS component</p>
       <br />
