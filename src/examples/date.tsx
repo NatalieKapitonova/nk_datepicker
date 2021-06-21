@@ -161,7 +161,10 @@ export default () => {
         <Datepicker
           name="dateInThePast"
           date={date}
-          onChange={(d) => setDate(d)}
+          onChange={(d) => {
+            console.log(d);
+            setDate(d);
+          }}
           selectMethod="click_and_close"
         />
       </Box>

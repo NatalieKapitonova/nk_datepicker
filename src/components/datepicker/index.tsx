@@ -8,7 +8,106 @@ import Btn from "./components/ok-button";
 import * as T from "./type";
 import * as U from "./utils";
 
+import { CorePicker, Types, UITypes } from "nk_datepicker_core";
+
 const colorDefault = "#ef476f";
+
+const CalendarOverlayBasic = (
+  props: UITypes.CalendarOverlayProps & {
+    children?: JSX.Element;
+    color?: string;
+  }
+) => {
+  const [isYear, setIsYear] = useState<boolean>(false);
+
+  const handleSelect = (d: Date) => {
+    props.onSelectDate(d);
+  };
+
+  return (
+    <Popover
+      open={props.open}
+      size={isYear ? "lg" : "sm"}
+      onClose={props.onClose}
+    >
+      <Toggle
+        date={props.date}
+        onSelectDate={handleSelect}
+        onToggle={() => setIsYear(!isYear)}
+        color={props.color || colorDefault}
+      />
+      {props.children}
+    </Popover>
+  );
+};
+
+const CalendarCustom = (outerProps: {
+  color?: string;
+  showClear?: boolean;
+  showToday?: boolean;
+  selectMethod: T.SelectMethod;
+}) => (props: UITypes.CalendarOverlayProps): JSX.Element => {
+  const [date, setDate] = useState<Date | null>(props.date);
+
+  useEffect(() => {
+    if (props.date && props.date !== date) {
+      setDate(U.getDate(props.date));
+    }
+  }, [props.date]);
+
+  const handleChange = () => {
+    if (date === null) {
+      props.onSelectDate(null);
+    }
+
+    props.onSelectDate(date);
+  };
+  const handleSelectDate = (d: Date | null) => {
+    setDate(d);
+    if (outerProps.selectMethod === "click_and_close") {
+      props.onSelectDate(d);
+    }
+  };
+
+  const handleClear = () => {
+    setDate(null);
+    props.onSelectDate(null);
+  };
+  return (
+    <CalendarOverlayBasic
+      onClose={props.onClose}
+      open={props.open}
+      date={date}
+      onSelectDate={handleSelectDate}
+      color={outerProps.color}
+    >
+      <>
+        {(outerProps.selectMethod === "ok_button" ||
+          !outerProps.selectMethod) && (
+          <Btn
+            onClick={() => handleChange()}
+            color={outerProps.color || colorDefault}
+            label="OK"
+          />
+        )}
+        {outerProps.showClear && (
+          <Btn
+            onClick={() => handleClear()}
+            color={outerProps.color || colorDefault}
+            label="Clear"
+          />
+        )}
+        {outerProps.showToday && (
+          <Btn
+            onClick={() => handleSelectDate(new Date())}
+            label="Today"
+            color={outerProps.color || colorDefault}
+          />
+        )}
+      </>
+    </CalendarOverlayBasic>
+  );
+};
 
 export default (props: T.DatepickerProps) => {
   const {
@@ -24,11 +123,6 @@ export default (props: T.DatepickerProps) => {
   const [date, setDate] = useState<Date | null>(
     props.date ? U.getDate(props.date) : null
   );
-  const [showCalendar, setShowCalendar] = useState<boolean>(false);
-  const [isYearCalendar, setIsYearCalendar] = useState<boolean>(false);
-  const [dateFormatted, setDateFormatted] = useState<string>(
-    U.formatDateString(date, props.pattern)
-  );
 
   useEffect(() => {
     if (props.date && props.date !== date) {
@@ -36,96 +130,27 @@ export default (props: T.DatepickerProps) => {
     }
   }, [props.date]);
 
-  const handleSelectDate = (d: Date | null) => {
-    setDate(d);
-
-    console.log(d);
-    if (selectMethod === "click_and_close") {
-      if (d === null) {
-        onChange(null, name);
-      }
-      if (outputDateFormat === "ISO") {
-        onChange(U.dateToIso(d), name);
-      } else {
-        onChange(d, name);
-      }
-      setDateFormatted(U.formatDateString(d, props.pattern));
-      setShowCalendar(false);
-      setIsYearCalendar(false);
-    }
+  const handleChange = (d: Date, name: string) => {
+    onChange(d, name);
   };
 
-  const handleChange = () => {
-    if (date === null) {
-      onChange(null, name);
-    }
-    if (outputDateFormat === "ISO") {
-      onChange(U.dateToIso(date), name);
-    } else {
-      onChange(date, name);
-    }
-    setDateFormatted(U.formatDateString(date, props.pattern));
-    setShowCalendar(false);
-    setIsYearCalendar(false);
-  };
+  const CalendarOverlay = CalendarCustom({
+    showClear,
+    showToday,
+    selectMethod,
+    color,
+  });
 
-  const handleClear = () => {
-    setDate(null);
-    setDateFormatted("");
-    onChange(null, name);
-    setShowCalendar(false);
-    setIsYearCalendar(false);
-  };
-
-  const handleToggle = (b: boolean) => {
-    setIsYearCalendar(b);
-  };
+  const Datepicker = (props: Types.CoreProps) =>
+    CorePicker({ Input, CalendarOverlay })(props);
 
   return (
-    <>
-      <Input
-        name={name}
-        onChange={() => {}}
-        onClick={() => setShowCalendar(!showCalendar)}
-        value={dateFormatted}
-        disabled={disabled}
-        placeholder={props.pattern}
-      />
-      <Popover
-        open={showCalendar}
-        onClose={() => setShowCalendar(false)}
-        size={isYearCalendar ? "lg" : "sm"}
-      >
-        <Toggle
-          date={date}
-          onSelectDate={handleSelectDate}
-          onToggle={handleToggle}
-          color={color || colorDefault}
-        />
-        <br />
-
-        {showClear && (
-          <Btn
-            onClick={() => handleClear()}
-            color={color || colorDefault}
-            label="Clear"
-          />
-        )}
-        {showToday && (
-          <Btn
-            onClick={() => handleSelectDate(new Date())}
-            label="Today"
-            color={color || colorDefault}
-          />
-        )}
-        {(selectMethod === "ok_button" || selectMethod === undefined) && (
-          <Btn
-            onClick={() => handleChange()}
-            color={color || colorDefault}
-            label="OK"
-          />
-        )}
-      </Popover>
-    </>
+    <Datepicker
+      name={name}
+      value={date}
+      onChange={handleChange}
+      disabled={disabled}
+      outputDateFormat={outputDateFormat}
+    />
   );
 };

@@ -6,11 +6,11 @@ interface Props {
   open: boolean;
   onClose?: () => void;
   children: React.ReactNode | string | number;
-  size: "sm" | "lg";
+  size?: "sm" | "lg";
 }
 
 export default (props: Props) => {
-  const { children, open, size } = props;
+  const { children, open, size = "sm" } = props;
   const { mobile } = useWindowDimensions();
   // const [open, setOpen] = useState<boolean>(props.open);
 

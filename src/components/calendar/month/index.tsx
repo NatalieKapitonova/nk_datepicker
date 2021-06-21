@@ -9,10 +9,11 @@ import styled from "styled-components";
 const colorDefault = "#ef476f";
 
 export default (props: T.CalemdarProps) => {
+  console.log(props);
   const color = props.color;
   const { onSelectDate } = props;
 
-  const [date, setDate] = useState<Date | null>(props.date);
+  const [date, setDate] = useState<Date | null>(props.date || new Date());
 
   const [day, setDay] = useState<number>(U.getDay(props.date, props.day));
   const [month, setMonth] = useState<number>(

@@ -3168,6 +3168,20 @@ nice-try@^1.0.4:
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
 
+nk_datepicker_core@1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/nk_datepicker_core/-/nk_datepicker_core-1.0.7.tgz#fa7c0d74c212e67149dd2b69df34cf671a247c9e"
+  integrity sha512-ar8EjxxK+LHz98KAmhA2iCl67TWRq7CQpo5+2WJBgtQA00cJGFdanc8H2LpWT7Rva0G521hD4BMkiPUJhPAa+g==
+  dependencies:
+    "@types/react" "^17.0.3"
+    "@types/react-dom" "^17.0.3"
+    "@types/react-router" "^5.1.13"
+    "@types/react-router-dom" "^5.1.7"
+    react "^17.0.2"
+    react-dom "^17.0.2"
+    react-router-dom "^5.2.0"
+    snowpack "^3.2.2"
+
 node-gyp@^7.1.0:
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/node-gyp/-/node-gyp-7.1.2.tgz#21a810aebb187120251c3bcec979af1587b188ae"
