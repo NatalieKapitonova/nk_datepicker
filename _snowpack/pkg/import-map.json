@@ -1,6 +1,7 @@
 {
   "imports": {
     "history": "./history.js",
+    "nk_datepicker_core": "./nk_datepicker_core.js",
     "react": "./react.js",
     "react-dom": "./react-dom.js",
     "react-router-dom": "./react-router-dom.js",

@@ -5,9 +5,10 @@ import * as U from "../utils/index.js";
 import styled from "../../../_snowpack/pkg/styled-components.js";
 const colorDefault = "#ef476f";
 export default (props) => {
+  console.log(props);
   const color = props.color;
   const {onSelectDate} = props;
-  const [date, setDate] = useState(props.date);
+  const [date, setDate] = useState(props.date || new Date());
   const [day, setDay] = useState(U.getDay(props.date, props.day));
   const [month, setMonth] = useState(U.getMonth(props.date, props.month));
   const [year, setYear] = useState(U.getYear(props.date, props.year));

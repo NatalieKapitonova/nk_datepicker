@@ -2,7 +2,7 @@ import React from "../../_snowpack/pkg/react.js";
 import styled from "../../_snowpack/pkg/styled-components.js";
 import {useWindowDimensions} from "../calendar/utils/index.js";
 export default (props) => {
-  const {children, open, size} = props;
+  const {children, open, size = "sm"} = props;
   const {mobile} = useWindowDimensions();
   if (open) {
     return /* @__PURE__ */ React.createElement(Modal, null, /* @__PURE__ */ React.createElement(ModalContent, {

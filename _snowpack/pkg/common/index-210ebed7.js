@@ -1,3 +1,5 @@
+var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
 function createCommonjsModule(fn, basedir, module) {
 	return module = {
 		path: basedir,
@@ -126,4 +128,4 @@ var react = createCommonjsModule(function (module) {
 }
 });
 
-export { createCommonjsModule as c, objectAssign as o, react as r };
+export { commonjsGlobal as a, createCommonjsModule as c, objectAssign as o, react as r };

@@ -4,7 +4,67 @@ import Input from "../input/index.js";
 import Popover from "../popover/index.js";
 import Btn from "./components/ok-button.js";
 import * as U from "./utils.js";
+import {CorePicker} from "../../_snowpack/pkg/nk_datepicker_core.js";
 const colorDefault = "#ef476f";
+const CalendarOverlayBasic = (props) => {
+  const [isYear, setIsYear] = useState(false);
+  const handleSelect = (d) => {
+    props.onSelectDate(d);
+  };
+  return /* @__PURE__ */ React.createElement(Popover, {
+    open: props.open,
+    size: isYear ? "lg" : "sm",
+    onClose: props.onClose
+  }, /* @__PURE__ */ React.createElement(Toggle, {
+    date: props.date,
+    onSelectDate: handleSelect,
+    onToggle: () => setIsYear(!isYear),
+    color: props.color || colorDefault
+  }), props.children);
+};
+const CalendarCustom = (outerProps) => (props) => {
+  const [date, setDate] = useState(props.date);
+  useEffect(() => {
+    if (props.date && props.date !== date) {
+      setDate(U.getDate(props.date));
+    }
+  }, [props.date]);
+  const handleChange = () => {
+    if (date === null) {
+      props.onSelectDate(null);
+    }
+    props.onSelectDate(date);
+  };
+  const handleSelectDate = (d) => {
+    setDate(d);
+    if (outerProps.selectMethod === "click_and_close") {
+      props.onSelectDate(d);
+    }
+  };
+  const handleClear = () => {
+    setDate(null);
+    props.onSelectDate(null);
+  };
+  return /* @__PURE__ */ React.createElement(CalendarOverlayBasic, {
+    onClose: props.onClose,
+    open: props.open,
+    date,
+    onSelectDate: handleSelectDate,
+    color: outerProps.color
+  }, /* @__PURE__ */ React.createElement(React.Fragment, null, (outerProps.selectMethod === "ok_button" || !outerProps.selectMethod) && /* @__PURE__ */ React.createElement(Btn, {
+    onClick: () => handleChange(),
+    color: outerProps.color || colorDefault,
+    label: "OK"
+  }), outerProps.showClear && /* @__PURE__ */ React.createElement(Btn, {
+    onClick: () => handleClear(),
+    color: outerProps.color || colorDefault,
+    label: "Clear"
+  }), outerProps.showToday && /* @__PURE__ */ React.createElement(Btn, {
+    onClick: () => handleSelectDate(new Date()),
+    label: "Today",
+    color: outerProps.color || colorDefault
+  })));
+};
 export default (props) => {
   const {
     onChange,
@@ -17,82 +77,26 @@ export default (props) => {
     showToday
   } = props;
   const [date, setDate] = useState(props.date ? U.getDate(props.date) : null);
-  const [showCalendar, setShowCalendar] = useState(false);
-  const [isYearCalendar, setIsYearCalendar] = useState(false);
-  const [dateFormatted, setDateFormatted] = useState(U.formatDateString(date, props.pattern));
   useEffect(() => {
     if (props.date && props.date !== date) {
       setDate(U.getDate(props.date));
     }
   }, [props.date]);
-  const handleSelectDate = (d) => {
-    setDate(d);
-    console.log(d);
-    if (selectMethod === "click_and_close") {
-      if (d === null) {
-        onChange(null, name);
-      }
-      if (outputDateFormat === "ISO") {
-        onChange(U.dateToIso(d), name);
-      } else {
-        onChange(d, name);
-      }
-      setDateFormatted(U.formatDateString(d, props.pattern));
-      setShowCalendar(false);
-      setIsYearCalendar(false);
-    }
+  const handleChange = (d, name2) => {
+    onChange(d, name2);
   };
-  const handleChange = () => {
-    if (date === null) {
-      onChange(null, name);
-    }
-    if (outputDateFormat === "ISO") {
-      onChange(U.dateToIso(date), name);
-    } else {
-      onChange(date, name);
-    }
-    setDateFormatted(U.formatDateString(date, props.pattern));
-    setShowCalendar(false);
-    setIsYearCalendar(false);
-  };
-  const handleClear = () => {
-    setDate(null);
-    setDateFormatted("");
-    onChange(null, name);
-    setShowCalendar(false);
-    setIsYearCalendar(false);
-  };
-  const handleToggle = (b) => {
-    setIsYearCalendar(b);
-  };
-  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Input, {
+  const CalendarOverlay = CalendarCustom({
+    showClear,
+    showToday,
+    selectMethod,
+    color
+  });
+  const Datepicker = (props2) => CorePicker({Input, CalendarOverlay})(props2);
+  return /* @__PURE__ */ React.createElement(Datepicker, {
     name,
-    onChange: () => {
-    },
-    onClick: () => setShowCalendar(!showCalendar),
-    value: dateFormatted,
+    value: date,
+    onChange: handleChange,
     disabled,
-    placeholder: props.pattern
-  }), /* @__PURE__ */ React.createElement(Popover, {
-    open: showCalendar,
-    onClose: () => setShowCalendar(false),
-    size: isYearCalendar ? "lg" : "sm"
-  }, /* @__PURE__ */ React.createElement(Toggle, {
-    date,
-    onSelectDate: handleSelectDate,
-    onToggle: handleToggle,
-    color: color || colorDefault
-  }), /* @__PURE__ */ React.createElement("br", null), showClear && /* @__PURE__ */ React.createElement(Btn, {
-    onClick: () => handleClear(),
-    color: color || colorDefault,
-    label: "Clear"
-  }), showToday && /* @__PURE__ */ React.createElement(Btn, {
-    onClick: () => handleSelectDate(new Date()),
-    label: "Today",
-    color: color || colorDefault
-  }), (selectMethod === "ok_button" || selectMethod === void 0) && /* @__PURE__ */ React.createElement(Btn, {
-    onClick: () => handleChange(),
-    color: color || colorDefault,
-    label: "OK"
-  })));
+    outputDateFormat
+  });
 };

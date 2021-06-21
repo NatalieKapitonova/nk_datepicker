@@ -65,7 +65,10 @@ export default () => {
   }, /* @__PURE__ */ React.createElement(Datepicker, {
     name: "dateInThePast",
     date,
-    onChange: (d) => setDate(d),
+    onChange: (d) => {
+      console.log(d);
+      setDate(d);
+    },
     selectMethod: "click_and_close"
   })), /* @__PURE__ */ React.createElement(Box, {
     title: "Custom color",

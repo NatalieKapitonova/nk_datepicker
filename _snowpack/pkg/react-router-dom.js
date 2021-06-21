@@ -1,6 +1,6 @@
-import { c as createCommonjsModule, r as react } from './common/index-ae389540.js';
-import { b as createMemoryHistory, i as invariant, d as createLocation, _ as _extends, l as locationsAreEqual, e as createPath, c as createBrowserHistory, a as createHashHistory } from './common/history-252f7041.js';
-import './common/hoist-non-react-statics.cjs-3e3ef147.js';
+import { c as createCommonjsModule, r as react } from './common/index-210ebed7.js';
+import { b as createMemoryHistory, i as invariant, _ as _extends, d as createLocation, e as createPath, c as createBrowserHistory, a as createHashHistory } from './common/history-252f7041.js';
+import './common/hoist-non-react-statics.cjs-fef88487.js';
 
 function _setPrototypeOf(o, p) {
   _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
@@ -877,82 +877,6 @@ function (_React$Component) {
   return Lifecycle;
 }(react.Component);
 
-var cache = {};
-var cacheLimit = 10000;
-var cacheCount = 0;
-
-function compilePath(path) {
-  if (cache[path]) return cache[path];
-  var generator = pathToRegexp_1.compile(path);
-
-  if (cacheCount < cacheLimit) {
-    cache[path] = generator;
-    cacheCount++;
-  }
-
-  return generator;
-}
-/**
- * Public API for generating a URL pathname from a path and parameters.
- */
-
-
-function generatePath(path, params) {
-  if (path === void 0) {
-    path = "/";
-  }
-
-  if (params === void 0) {
-    params = {};
-  }
-
-  return path === "/" ? path : compilePath(path)(params, {
-    pretty: true
-  });
-}
-
-/**
- * The public API for navigating programmatically with a component.
- */
-
-function Redirect(_ref) {
-  var computedMatch = _ref.computedMatch,
-      to = _ref.to,
-      _ref$push = _ref.push,
-      push = _ref$push === void 0 ? false : _ref$push;
-  return react.createElement(context.Consumer, null, function (context) {
-    !context ?  invariant(false) : void 0;
-    var history = context.history,
-        staticContext = context.staticContext;
-    var method = push ? history.push : history.replace;
-    var location = createLocation(computedMatch ? typeof to === "string" ? generatePath(to, computedMatch.params) : _extends({}, to, {
-      pathname: generatePath(to.pathname, computedMatch.params)
-    }) : to); // When rendering in a static context,
-    // set the new location immediately.
-
-    if (staticContext) {
-      method(location);
-      return null;
-    }
-
-    return react.createElement(Lifecycle, {
-      onMount: function onMount() {
-        method(location);
-      },
-      onUpdate: function onUpdate(self, prevProps) {
-        var prevLocation = createLocation(prevProps.to);
-
-        if (!locationsAreEqual(prevLocation, _extends({}, location, {
-          key: prevLocation.key
-        }))) {
-          method(location);
-        }
-      },
-      to: to
-    });
-  });
-}
-
 var cache$1 = {};
 var cacheLimit$1 = 10000;
 var cacheCount$1 = 0;
@@ -1487,4 +1411,4 @@ var NavLink = forwardRef$1(function (_ref, forwardedRef) {
   });
 });
 
-export { BrowserRouter, Link, Redirect, Route, Router, Switch, matchPath };
+export { BrowserRouter, Link, Route, Router, Switch, matchPath };
